@@ -1,3 +1,8 @@
+package player
+
+import player.classes.PlayerClass
+import player.races.PlayerRace
+
 enum class Attribute {
     STRENGTH,
     DEXTERITY,
@@ -38,7 +43,7 @@ class Player {
             else -> 20
         }
 
-    var attributes = mapOf(
+    var attributes: Map<Attribute, Int> = mapOf(
         Attribute.STRENGTH to 10,
         Attribute.DEXTERITY to 10,
         Attribute.CONSTITUTION to 10,
@@ -47,9 +52,12 @@ class Player {
         Attribute.CHARISMA to 10,
     )
 
+    var playerClass: PlayerClass = PlayerClass()
+    var playerRace: PlayerRace = PlayerRace()
+
+    // TODO: Equipment
+
     constructor() {
 
     }
-
-
 }
