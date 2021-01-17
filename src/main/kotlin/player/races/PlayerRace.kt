@@ -1,10 +1,13 @@
 package player.races
 
-import CreatureSize
+import creature.CreatureSize
 
 class PlayerRace {
-    val size: CreatureSize = CreatureSize.MEDIUM
+    val size: CreatureSize
 
+    constructor() {
+        size = CreatureSize.MEDIUM
+    }
     // TODO: Racial increases
     // TODO: Speed
     // TODO: Languages

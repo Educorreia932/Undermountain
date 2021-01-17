@@ -1,0 +1,4 @@
+package creature
+
+class Creature {
+}

@@ -1,0 +1,5 @@
+package player
+
+class Feature {
+
+}

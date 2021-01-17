@@ -1,23 +1,14 @@
 package player
 
+import creature.Creature
 import player.classes.PlayerClass
 import player.races.PlayerRace
 
-enum class Attribute {
-    STRENGTH,
-    DEXTERITY,
-    CONSTITUTION,
-    WISDOM,
-    INTELLIGENCE,
-    CHARISMA
-}
+class Player : Creature {
+    var playerRace: PlayerRace = PlayerRace()
+    var playerClass: PlayerClass = PlayerClass()
 
-class Player {
-    var name: String = ""
-    var hitpoints: Int = 0
-    var experiencePoints: Int = 0
-    var speed: Int = 0
-    var ac: Int = 0
+    private var experiencePoints: Int = 0
 
     val level: Int
         get() = when (experiencePoints) {
@@ -52,12 +43,9 @@ class Player {
         Attribute.CHARISMA to 10,
     )
 
-    var playerClass: PlayerClass = PlayerClass()
-    var playerRace: PlayerRace = PlayerRace()
-
-    // TODO: Equipment
+    // TODO: Saving Throws
+    // TODO: Skills
 
     constructor() {
-
     }
 }
