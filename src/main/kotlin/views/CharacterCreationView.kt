@@ -20,24 +20,17 @@ class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
             .withDecorations(
                 ComponentDecorations.box(BoxType.SINGLE, "Character Creation"),
                 ComponentDecorations.shadow()
-            ) // shadow can be added
+            )
             .withSize(32, 40)
             .withPosition(1, 1)
             .build()
 
         val header = Components.header()
-            // corner of the panel
             .withPosition(1, 1)
             .withText("Race")
             .build()
 
-        val race: RadioButtonGroup = Components.radioButtonGroup().build()
-
-        val right: RadioButton = Components.radioButton()
-            .withPosition(2, 3)
-            .withKey("A")
-            .withText("Human")
-            .build()
+        val raceGroup: RadioButtonGroup = Components.radioButtonGroup().build()
 
         panel.addComponents(header)
 
@@ -53,7 +46,7 @@ class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
                 .withText(raceName)
                 .build()
 
-            race.addComponents(raceButton)
+            raceGroup.addComponents(raceButton)
             panel.addComponent(raceButton)
 
             y += 1
@@ -66,5 +59,7 @@ class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
         return Json.parseToJsonElement(lines) as JsonArray
     }
 
-    private fun loadResource(file: String): String = javaClass.getResource(file).readText()
+    companion object {
+        fun loadResource(file: String): String = javaClass.getResource(file).readText()
+    }
 }

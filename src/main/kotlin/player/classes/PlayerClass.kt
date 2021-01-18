@@ -1,5 +1,6 @@
 package player.classes
 
+import kotlinx.serialization.json.JsonObject
 import spells.Spell
 
 open class PlayerClass {
@@ -34,6 +35,10 @@ open class PlayerClass {
 
     val proficiencyBonus: Int
         get() = level / 4 + 2
+
+    constructor(jsonObject: JsonObject?) {
+
+    }
 
     // TODO: Saving Throw Proficiencies
     // TODO: Armor and Weapon Proficiencies

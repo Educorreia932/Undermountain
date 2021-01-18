@@ -1,11 +1,11 @@
 package creature
 
 open class Creature {
-    var name: String = ""
-    var hitpoints: Int = 0
-    var speed: Int = 0
-    var ac: Int = 0
-    val alignment: Alignment = Alignment.UNALIGNED
+    var name: String?
+    var hitpoints: Int
+    var speed: Int
+    var ac: Int
+    var alignment: Alignment
 
     var attributes: Map<Attribute, Int> = mapOf(
         Attribute.STRENGTH to 10,
@@ -18,4 +18,20 @@ open class Creature {
 
     // TODO: Languages
     // TODO: Actions
+
+    constructor() {
+        this.name = ""
+        this.hitpoints = -1
+        this.speed = -1
+        this.ac = -1
+        this.alignment = Alignment.UNALIGNED
+    }
+
+    constructor(name: String, hitpoints: Int, speed: Int, ac: Int, alignment: Alignment) {
+        this.name = name
+        this.hitpoints = hitpoints
+        this.speed = speed
+        this.ac = ac
+        this.alignment = alignment
+    }
 }
