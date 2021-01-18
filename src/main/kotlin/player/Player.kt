@@ -14,7 +14,7 @@ class Player : Creature {
 
     constructor(
         raceObject: JsonObject,
-        classObject: JsonObject?
+        classObject: JsonObject
     ) : super() {
         playerRace = PlayerRace(raceObject)
         playerClass = PlayerClass(classObject)

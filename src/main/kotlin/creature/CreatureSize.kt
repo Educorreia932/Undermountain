@@ -1,10 +1,10 @@
 package creature
 
 enum class CreatureSize {
-    TINY,
-    SMALL,
-    MEDIUM,
-    LARGE,
-    HUGE,
-    GARGANTUAN
+    Tiny,
+    Small,
+    Medium,
+    Large,
+    Huge,
+    Gargantuan
 }
