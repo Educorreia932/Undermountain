@@ -1,6 +1,8 @@
 package views
 
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
@@ -37,21 +39,32 @@ class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
             .withText("Human")
             .build()
 
-        race.addComponents(right)
-
-        panel.addComponents(header, right)
+        panel.addComponents(header)
 
         screen.addComponent(panel)
 
-        getRaces()
+        var y = 3
+
+        for (raceElement in getRaces()) {
+            val raceName = (raceElement as JsonObject)["name"].toString()
+            val raceButton: RadioButton = Components.radioButton()
+                .withPosition(2, y)
+                .withKey(raceName)
+                .withText(raceName)
+                .build()
+
+            race.addComponents(raceButton)
+            panel.addComponent(raceButton)
+
+            y += 1
+        }
     }
 
-    fun getRaces() {
-        val lines = loadResource("/5e-SRD-Races.json")
-        val obj = Json.parseToJsonElement(lines)
+    fun getRaces(): JsonArray {
+        val lines: String = loadResource("/5e-SRD-Races.json")
 
-        println(obj)
+        return Json.parseToJsonElement(lines) as JsonArray
     }
 
-    private fun loadResource(file: String) = javaClass.getResource(file).readText()
+    private fun loadResource(file: String): String = javaClass.getResource(file).readText()
 }
