@@ -1,4 +1,4 @@
-package player
+package creature
 
 enum class Attribute {
     STRENGTH,

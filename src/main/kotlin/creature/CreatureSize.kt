@@ -1,3 +1,5 @@
+package creature
+
 enum class CreatureSize {
     TINY,
     SMALL,

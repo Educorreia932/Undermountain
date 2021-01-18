@@ -1,3 +1,5 @@
+package creature
+
 enum class Alignment {
     UNALIGNED,
     LAWFUL_GOOD,

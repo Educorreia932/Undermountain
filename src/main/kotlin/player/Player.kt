@@ -34,15 +34,6 @@ class Player : Creature {
             else -> 20
         }
 
-    var attributes: Map<Attribute, Int> = mapOf(
-        Attribute.STRENGTH to 10,
-        Attribute.DEXTERITY to 10,
-        Attribute.CONSTITUTION to 10,
-        Attribute.WISDOM to 10,
-        Attribute.INTELLIGENCE to 10,
-        Attribute.CHARISMA to 10,
-    )
-
     // TODO: Saving Throws
     // TODO: Skills
 
