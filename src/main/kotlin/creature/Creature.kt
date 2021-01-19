@@ -1,7 +1,7 @@
 package creature
 
 open class Creature {
-    var name: String?
+    var name: String
     var hitpoints: Int
     var speed: Int
     var ac: Int

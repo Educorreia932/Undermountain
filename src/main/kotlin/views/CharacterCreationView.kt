@@ -1,6 +1,7 @@
 package views
 
-import kotlinx.serialization.json.Json
+import data.Data
+import data.DataType
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import org.hexworks.zircon.api.ColorThemes
@@ -38,7 +39,9 @@ class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
 
         var y = 3
 
-        for (raceElement in getRaces()) {
+        val raceData: JsonArray = Data.data[DataType.Race]!!
+
+        for (raceElement in raceData) {
             val raceName = (raceElement as JsonObject)["name"].toString()
             val raceButton: RadioButton = Components.radioButton()
                 .withPosition(2, y)
@@ -53,13 +56,4 @@ class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
         }
     }
 
-    fun getRaces(): JsonArray {
-        val lines: String = loadResource("/5e-SRD-Races.json")
-
-        return Json.parseToJsonElement(lines) as JsonArray
-    }
-
-    companion object {
-        fun loadResource(file: String): String = javaClass.getResource(file).readText()
-    }
 }

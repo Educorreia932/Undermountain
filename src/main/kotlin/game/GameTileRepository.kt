@@ -1,5 +1,6 @@
 package game
 
+import game.GameColors.ACCENT_COLOR
 import game.GameColors.FLOOR_BACKGROUND
 import game.GameColors.FLOOR_FOREGROUND
 import game.GameColors.WALL_BACKGROUND
@@ -22,4 +23,11 @@ object GameTileRepository {
         .withForegroundColor(WALL_FOREGROUND)
         .withBackgroundColor(WALL_BACKGROUND)
         .buildCharacterTile()
+
+    val PLAYER = Tile.newBuilder()
+        .withCharacter('@')
+        .withBackgroundColor(FLOOR_BACKGROUND)
+        .withForegroundColor(ACCENT_COLOR)
+        .buildCharacterTile()
 }
+

@@ -1,6 +1,7 @@
 package views
 
 import game.Game
+import game.GameBuilder
 import game.GameConfig
 import game.GameConfig.LOG_AREA_HEIGHT
 import game.GameConfig.SIDEBAR_WIDTH
@@ -17,11 +18,10 @@ import org.hexworks.zircon.api.view.base.BaseView
 import org.hexworks.zircon.internal.game.impl.GameAreaComponentRenderer
 
 class PlayView(
-    grid: TileGrid,
-    game: Game = Game.create(),
+    private val grid: TileGrid,
+    private val game: Game = GameBuilder.create(),
     theme: ColorTheme = GameConfig.THEME
 ) : BaseView(grid, theme) {
-
     init {
         val sidebar = Components.panel()
             .withSize(SIDEBAR_WIDTH, GameConfig.WINDOW_HEIGHT)

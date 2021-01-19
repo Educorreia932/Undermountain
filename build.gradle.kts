@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val amethystVersion: String by project
+
 plugins {
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.serialization") version "1.4.10"
@@ -16,7 +18,7 @@ dependencies {
     implementation("org.hexworks.zircon:zircon.core-jvm:2020.2.0-RELEASE")
     implementation("org.hexworks.zircon:zircon.jvm.swing:2020.2.0-RELEASE")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
-    implementation("org.hexworks.amethyst:amethyst.core-jvm:020.1.1-RELEASE")
+    implementation("org.hexworks.amethyst:amethyst.core-jvm:$amethystVersion")
 }
 
 tasks.test {
