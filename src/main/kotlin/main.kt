@@ -1,3 +1,6 @@
+
+import game.GameConfig.WINDOW_HEIGHT
+import game.GameConfig.WINDOW_WIDTH
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
@@ -6,11 +9,12 @@ import org.hexworks.zircon.api.SwingApplications.startTileGrid
 import org.hexworks.zircon.api.application.AppConfig
 import player.Player
 import views.CharacterCreationView.Companion.loadResource
+import views.PlayView
 
 fun main() {
     val tileGrid = startTileGrid(
         AppConfig.newBuilder()
-            .withSize(100, 50)
+            .withSize(WINDOW_WIDTH, WINDOW_HEIGHT)
             .withDefaultTileset(aduDhabi16x16())
             .build()
     )
