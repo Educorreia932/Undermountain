@@ -5,9 +5,6 @@ plugins {
     kotlin("plugin.serialization") version "1.4.10"
 }
 
-group = "me.skelo"
-version = "1.0-SNAPSHOT"
-
 repositories {
     mavenCentral()
     jcenter()
@@ -19,6 +16,7 @@ dependencies {
     implementation("org.hexworks.zircon:zircon.core-jvm:2020.2.0-RELEASE")
     implementation("org.hexworks.zircon:zircon.jvm.swing:2020.2.0-RELEASE")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
+    implementation("org.hexworks.amethyst:amethyst.core-jvm:020.1.1-RELEASE")
 }
 
 tasks.test {

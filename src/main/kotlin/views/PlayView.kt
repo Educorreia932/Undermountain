@@ -35,7 +35,7 @@ class PlayView(
             .build()
 
         val gameComponent = Components.panel()
-            .withSize(game.world.visibleSize.to2DSize())    
+            .withSize(game.world.visibleSize.to2DSize())
             .withComponentRenderer(
                 GameAreaComponentRenderer(
                     gameArea = game.world,
