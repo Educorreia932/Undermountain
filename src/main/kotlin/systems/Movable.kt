@@ -1,6 +1,6 @@
 package systems
 
-import attributes.types.PlayerEntity
+import attributes.Player
 import extensions.position
 import game.GameContext
 import messages.MoveCamera
@@ -17,14 +17,15 @@ object Movable : BaseFacet<GameContext, MoveTo>(MoveTo::class) {
         val world = context.world
         val previousPosition = entity.position
         var result: Response = Pass
+
         if (world.moveEntity(entity, position)) {
-            result = if (entity.type == PlayerEntity) {
+            result = if (entity.type == Player) {
                 MessageResponse(
                     MoveCamera(
-                    context = context,
-                    source = entity,
-                    previousPosition = previousPosition
-                )
+                        context = context,
+                        source = entity,
+                        previousPosition = previousPosition
+                    )
                 )
             } else Consumed
         }

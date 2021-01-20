@@ -7,13 +7,13 @@ open class Creature {
     var ac: Int
     var alignment: Alignment
 
-    var attributes: Map<Attribute, Int> = mapOf(
-        Attribute.STRENGTH to 10,
-        Attribute.DEXTERITY to 10,
-        Attribute.CONSTITUTION to 10,
-        Attribute.WISDOM to 10,
-        Attribute.INTELLIGENCE to 10,
-        Attribute.CHARISMA to 10,
+    var attributes: Map<Attributes, Int> = mapOf(
+        Attributes.STRENGTH to 10,
+        Attributes.DEXTERITY to 10,
+        Attributes.CONSTITUTION to 10,
+        Attributes.WISDOM to 10,
+        Attributes.INTELLIGENCE to 10,
+        Attributes.CHARISMA to 10,
     )
 
     // TODO: Languages

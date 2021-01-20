@@ -26,4 +26,8 @@ object Data {
 
         return Json.parseToJsonElement(lines) as JsonArray
     }
+
+    fun getDataObject(dataType: DataType): JsonArray {
+        return data[dataType]!!
+    }
 }

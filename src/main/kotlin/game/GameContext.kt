@@ -1,6 +1,6 @@
 package game
 
-import attributes.types.PlayerEntity
+import attributes.Player
 import extensions.GameEntity
 import org.hexworks.amethyst.api.Context
 import org.hexworks.zircon.api.screen.Screen
@@ -10,5 +10,5 @@ data class GameContext(
     val world: World,
     val screen: Screen,
     val uiEvent: org.hexworks.zircon.api.uievent.UIEvent,
-    val player: GameEntity<PlayerEntity>
+    val player: GameEntity<Player>
 ) : Context

@@ -1,6 +1,6 @@
 package game
 
-import attributes.types.PlayerEntity
+import attributes.Player
 import builders.EntityFactory
 import builders.WorldBuilder
 import extensions.GameEntity
@@ -39,7 +39,7 @@ class GameBuilder(val worldSize: Size3D) {
         world.scrollUpBy(world.actualSize.zLength)
     }
 
-    private fun addPlayer(): GameEntity<PlayerEntity> {
+    private fun addPlayer(): GameEntity<Player> {
         val player = EntityFactory.newPlayer()
 
         world.addAtEmptyPosition(
