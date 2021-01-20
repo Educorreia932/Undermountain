@@ -1,0 +1,4 @@
+package attributes
+
+class Trait {
+}

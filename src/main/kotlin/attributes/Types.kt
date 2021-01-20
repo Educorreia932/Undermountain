@@ -6,8 +6,8 @@ import org.hexworks.amethyst.api.entity.EntityType
 
 interface Combatant : EntityType
 
-val GameEntity<Combatant>.combatStats: CombatStats
-    get() = findAttribute(CombatStats::class).get()
+val GameEntity<Combatant>.combatStats: Stats
+    get() = findAttribute(Stats::class).get()
 
 open class Creature(name: String): BaseEntityType(
     name = name

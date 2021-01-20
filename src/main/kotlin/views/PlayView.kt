@@ -5,6 +5,7 @@ import game.GameBuilder
 import game.GameConfig
 import game.GameConfig.LOG_AREA_HEIGHT
 import game.GameConfig.SIDEBAR_WIDTH
+import game.GameConfig.WINDOW_HEIGHT
 import game.GameConfig.WINDOW_WIDTH
 import game.GameTileRepository
 import org.hexworks.cobalt.databinding.api.extension.toProperty
@@ -18,6 +19,7 @@ import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.hexworks.zircon.api.uievent.Processed
 import org.hexworks.zircon.api.view.base.BaseView
 import org.hexworks.zircon.internal.game.impl.GameAreaComponentRenderer
+import views.fragment.PlayerInformationFragment
 
 class PlayView(
     grid: TileGrid,
@@ -26,9 +28,16 @@ class PlayView(
 ) : BaseView(grid, theme) {
     init {
         val sidebar = Components.panel()
-            .withSize(SIDEBAR_WIDTH, GameConfig.WINDOW_HEIGHT)
+            .withSize(SIDEBAR_WIDTH, WINDOW_HEIGHT)
             .withDecorations(box())
             .build()
+
+        sidebar.addFragment(
+            PlayerInformationFragment(
+                width = sidebar.contentSize.width,
+                player = game.player
+            )
+        )
 
         val logArea = Components.logArea()
             .withDecorations(box(title = "Log"))

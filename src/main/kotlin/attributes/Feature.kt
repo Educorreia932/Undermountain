@@ -1,4 +1,4 @@
-package creature
+package attributes
 
 class Feature {
 

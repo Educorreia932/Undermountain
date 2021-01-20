@@ -2,6 +2,12 @@ package data
 
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+
+enum class DataType {
+    Race,
+    Class
+}
 
 object Data {
     val data: Map<DataType, JsonArray> = load()
@@ -27,7 +33,11 @@ object Data {
         return Json.parseToJsonElement(lines) as JsonArray
     }
 
-    fun getDataObject(dataType: DataType): JsonArray {
-        return data[dataType]!!
+    fun getDataObject(dataType: DataType, index: Int): JsonObject {
+        return data[dataType]!![index] as JsonObject
     }
+
+    fun getRace(index: Int) = getDataObject(DataType.Race, index)
+
+    fun getClass(index: Int) = getDataObject(DataType.Class, index)
 }

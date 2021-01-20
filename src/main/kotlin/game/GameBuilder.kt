@@ -40,7 +40,7 @@ class GameBuilder(val worldSize: Size3D) {
     }
 
     private fun addPlayer(): GameEntity<Player> {
-        val player = EntityFactory.newPlayer()
+        val player = EntityFactory.newPlayer(0, 0)
 
         world.addAtEmptyPosition(
             player,

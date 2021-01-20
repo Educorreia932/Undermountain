@@ -13,6 +13,7 @@ object InputReceiver : BaseBehavior<GameContext>() {
     override suspend fun update(entity: Entity<EntityType, GameContext>, context: GameContext): Boolean {
         val (_, _, uiEvent, player) = context
         val currentPos = player.position
+
         if (uiEvent is KeyboardEvent) {
             val newPosition = when (uiEvent.code) {
                 KeyCode.UP -> currentPos.withRelativeY(-1)
@@ -24,6 +25,7 @@ object InputReceiver : BaseBehavior<GameContext>() {
                     currentPos
                 }
             }
+
             player.receiveMessage(MoveTo(context, player, newPosition))
         }
         return true

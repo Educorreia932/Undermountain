@@ -2,11 +2,10 @@ package builders
 
 import attributes.*
 import data.Data
-import data.DataType
 import game.GameContext
 import game.GameTileRepository.PLAYER
-import kotlinx.serialization.json.JsonObject
 import org.hexworks.amethyst.api.builder.EntityBuilder
+import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.amethyst.api.newEntityOfType
 import systems.CameraMover
@@ -19,18 +18,23 @@ fun <T : EntityType> newGameEntityOfType(
 ) = newEntityOfType(type, init)
 
 object EntityFactory {
-    fun newPlayer() = newGameEntityOfType(Player) {
-        attributes(
-            EntityPosition(),
-            EntityTile(PLAYER),
-            CombatStats.create(
-                maxHp = 10,
-                ac = 10
-            ),
-            PlayerRace(Data.getDataObject(DataType.Race)[0] as JsonObject),
-            PlayerClass(Data.getDataObject(DataType.Class)[0] as JsonObject)
-        )
-        behaviors(InputReceiver)
-        facets(Movable, CameraMover)
+    fun newPlayer(raceIndex: Int, classIndex: Int): Entity<Player, GameContext> {
+        val playerRace: PlayerRace = PlayerRace(Data.getRace(raceIndex))
+        val playerClass: PlayerClass= PlayerClass(Data.getClass(raceIndex))
+
+        return newGameEntityOfType(Player) {
+            attributes(
+                EntityPosition(),
+                EntityTile(PLAYER),
+                Stats.create(
+                    maxHp = 10,
+                    ac = 10
+                ),
+                playerRace,
+                playerClass
+            )
+            behaviors(InputReceiver)
+            facets(Movable, CameraMover)
+        }
     }
 }
