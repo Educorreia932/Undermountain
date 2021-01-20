@@ -32,6 +32,7 @@ object EntityFactory {
                     maxHp = 10,
                     ac = 10
                 ),
+                Experience(),
                 playerRace,
                 playerClass
             )
