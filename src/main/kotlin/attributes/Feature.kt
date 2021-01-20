@@ -1,5 +1,0 @@
-package attributes
-
-class Feature {
-
-}

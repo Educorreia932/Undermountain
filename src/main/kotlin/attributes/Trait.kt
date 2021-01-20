@@ -1,4 +1,0 @@
-package attributes
-
-class Trait {
-}

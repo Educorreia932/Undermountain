@@ -4,7 +4,7 @@ import attributes.types.Player
 import extensions.GameEntity
 import world.World
 
-class Game(
+data class Game(
     val world: World,
     val player: GameEntity<Player>
 ) {

@@ -1,27 +1,27 @@
 package attributes
 
-enum class Component {
+enum class SpellComponent {
     V,
     S,
     M
 }
 
 enum class MagicSchool {
-    ABJURATION,
-    CONJURATION,
-    DIVINATION,
-    ENCHANTMENT,
-    EVOCATION,
-    ILLUSION,
-    NECROMANCY,
-    TRANSMUTATION
+    Abjuration,
+    Conjuration,
+    Divination,
+    Enchantment,
+    Evocation,
+    Illusion,
+    Necromancy,
+    Transmutation
 }
 
 class Spell {
     val level: Int = 0
-    val school: MagicSchool = MagicSchool.ABJURATION
-    // TODO: Casting time
+    val school: MagicSchool = MagicSchool.Abjuration
+    val castingTime: Int = 0
     val range: Int = 0
-    val components: Array<Component> = arrayOf()
-    // TODO: Duration
+    val components: Array<SpellComponent> = arrayOf()
+    val duration: Int = 0
 }

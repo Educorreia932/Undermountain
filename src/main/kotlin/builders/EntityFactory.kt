@@ -13,15 +13,15 @@ import systems.CameraMover
 import systems.InputReceiver
 import systems.Movable
 
-fun <T : EntityType> newGameEntityOfType(
-    type: T,
-    init: EntityBuilder<T, GameContext>.() -> Unit
-) = newEntityOfType(type, init)
-
 object EntityFactory {
+    fun <T : EntityType> newGameEntityOfType(
+        type: T,
+        init: EntityBuilder<T, GameContext>.() -> Unit
+    ) = newEntityOfType(type, init)
+
     fun newPlayer(raceIndex: Int, classIndex: Int): Entity<Player, GameContext> {
         val playerRace: PlayerRace = PlayerRace(Data.getRace(raceIndex))
-        val playerClass: PlayerClass= PlayerClass(Data.getClass(raceIndex))
+        val playerClass: PlayerClass= PlayerClass(Data.getClass(classIndex))
 
         return newGameEntityOfType(Player) {
             attributes(

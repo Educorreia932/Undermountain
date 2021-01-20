@@ -3,6 +3,7 @@ package attributes
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.zircon.api.Components
+import kotlin.math.floor
 
 enum class AttributeType {
     Strength,
@@ -50,4 +51,6 @@ class Attributes : DisplayableAttribute {
                 index++
             }
         }
+
+    fun getModifier(attributeType: AttributeType): Int = floor((attributes[attributeType]!! - 10) / 2.0).toInt()
 }

@@ -4,12 +4,12 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 
-enum class DataType {
-    Race,
-    Class
-}
-
 object Data {
+    enum class DataType {
+        Race,
+        Class
+    }
+
     val data: Map<DataType, JsonArray> = load()
 
     private fun loadResource(file: String): String = javaClass.getResource(file).readText()
@@ -33,7 +33,7 @@ object Data {
         return Json.parseToJsonElement(lines) as JsonArray
     }
 
-    fun getDataObject(dataType: DataType, index: Int): JsonObject {
+    private fun getDataObject(dataType: DataType, index: Int): JsonObject {
         return data[dataType]!![index] as JsonObject
     }
 

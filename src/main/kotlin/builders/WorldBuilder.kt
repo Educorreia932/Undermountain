@@ -25,11 +25,13 @@ class WorldBuilder(private val worldSize: Size3D) {
                 GameBlockFactory.floor()
             } else GameBlockFactory.wall()
         }
+
         return this
     }
 
     private fun smooth(iterations: Int): WorldBuilder {
         val newBlocks = mutableMapOf<Position3D, GameBlock>()
+
         repeat(iterations) {
             forAllPositions { pos ->
                 val (x, y, z) = pos
@@ -42,11 +44,18 @@ class WorldBuilder(private val worldSize: Size3D) {
                         } else rocks++
                     }
                 }
+
                 newBlocks[Position3D.create(x, y, z)] =
-                    if (floors >= rocks) GameBlockFactory.floor() else GameBlockFactory.wall()
+                    if (floors >= rocks)
+                        GameBlockFactory.floor()
+
+                    else
+                        GameBlockFactory.wall()
             }
+
             blocks = newBlocks
         }
+
         return this
     }
 
