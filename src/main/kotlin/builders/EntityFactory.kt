@@ -1,6 +1,7 @@
 package builders
 
 import attributes.*
+import attributes.types.Player
 import data.Data
 import game.GameContext
 import game.GameTileRepository.PLAYER

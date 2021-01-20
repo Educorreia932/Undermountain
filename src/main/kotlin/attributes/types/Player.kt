@@ -1,5 +1,6 @@
-package attributes
+package attributes.types
 
+import attributes.Stats
 import extensions.GameEntity
 import org.hexworks.amethyst.api.base.BaseEntityType
 import org.hexworks.amethyst.api.entity.EntityType
