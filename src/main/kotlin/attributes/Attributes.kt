@@ -26,7 +26,7 @@ class Attributes : DisplayableAttribute {
     )
 
     override fun toComponent(width: Int) = Components.vbox()
-        .withSize(width, 5)
+        .withSize(width, 10)
         .build()
         .apply {
             addComponent(
@@ -34,16 +34,20 @@ class Attributes : DisplayableAttribute {
                     .addHeader("Attributes")
             )
 
+            var index = 0
+
             for ((key, value) in attributes) {
                 val label = Components.label()
                     .withSize(width, 1)
                     .build()
 
                 label.textProperty.updateFrom(
-                    createPropertyFrom(key.toString() + value)
+                    createPropertyFrom("$key: $value")
                 )
 
                 addComponent(label)
+
+                index++
             }
         }
 }

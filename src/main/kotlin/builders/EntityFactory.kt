@@ -26,6 +26,7 @@ object EntityFactory {
             attributes(
                 EntityPosition(),
                 EntityTile(PLAYER),
+                Attributes(),
                 Stats.create(
                     maxHp = 10,
                     ac = 10

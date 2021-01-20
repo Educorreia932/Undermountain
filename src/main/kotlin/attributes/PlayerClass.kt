@@ -4,7 +4,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.int
 import org.hexworks.amethyst.api.base.BaseAttribute
-import spells.Spell
 
 data class PlayerClass(val jsonObject: JsonObject) : BaseAttribute() {
     val name: String = jsonObject["name"].toString().replace("\"", "")
