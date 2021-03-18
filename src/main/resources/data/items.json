@@ -1,0 +1,13 @@
+[
+    {
+        "id": "longsword",
+        "name": "Longsword",
+        "category": "weapon",
+        "damage": {
+            "damage_dice": "1d8",
+            "damage_type": "slashing"
+        },
+        "range": 5,
+        "weight": 3
+    }
+]

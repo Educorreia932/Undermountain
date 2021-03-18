@@ -17,3 +17,7 @@ open class Creature(name: String): BaseEntityType(
 object Player : Creature(
     name = "player"
 ), ExperienceGainer
+
+object Monster : Creature(
+    name = "monster"
+)

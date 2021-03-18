@@ -6,24 +6,24 @@ import org.hexworks.zircon.api.Components
 import kotlin.math.floor
 
 enum class AttributeType {
-    Strength,
-    Dexterity,
-    Constitution,
-    Wisdom,
-    Intelligence,
-    Charisma
+    STR,
+    DEX,
+    CON,
+    WIS,
+    INT,
+    CHA
 }
 
 class Attributes : DisplayableAttribute {
     override val id = UUID.randomUUID()
 
     val attributes: Map<AttributeType, Int> = mapOf(
-        AttributeType.Strength to 10,
-        AttributeType.Dexterity to 10,
-        AttributeType.Constitution to 10,
-        AttributeType.Wisdom to 10,
-        AttributeType.Intelligence to 10,
-        AttributeType.Charisma to 10
+        AttributeType.STR to 10,
+        AttributeType.DEX to 10,
+        AttributeType.CON to 10,
+        AttributeType.WIS to 10,
+        AttributeType.INT to 10,
+        AttributeType.CHA to 10
     )
 
     override fun toComponent(width: Int) = Components.vbox()
@@ -43,7 +43,7 @@ class Attributes : DisplayableAttribute {
                     .build()
 
                 label.textProperty.updateFrom(
-                    createPropertyFrom("$key: $value")
+                    createPropertyFrom("$key: $value (${getModifier(key)})")
                 )
 
                 addComponent(label)
@@ -52,5 +52,5 @@ class Attributes : DisplayableAttribute {
             }
         }
 
-    fun getModifier(attributeType: AttributeType): Int = floor((attributes[attributeType]!! - 10) / 2.0).toInt()
+    private fun getModifier(attributeType: AttributeType): Int = floor((attributes[attributeType]!! - 10) / 2.0).toInt()
 }

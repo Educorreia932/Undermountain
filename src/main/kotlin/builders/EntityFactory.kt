@@ -1,9 +1,11 @@
 package builders
 
 import attributes.*
+import attributes.types.Monster
 import attributes.types.Player
 import data.Data
 import game.GameContext
+import game.GameTileRepository.MONSTER
 import game.GameTileRepository.PLAYER
 import org.hexworks.amethyst.api.builder.EntityBuilder
 import org.hexworks.amethyst.api.entity.Entity
@@ -14,15 +16,12 @@ import systems.InputReceiver
 import systems.Movable
 
 object EntityFactory {
-    fun <T : EntityType> newGameEntityOfType(
+    private fun <T : EntityType> newGameEntityOfType(
         type: T,
         init: EntityBuilder<T, GameContext>.() -> Unit
     ) = newEntityOfType(type, init)
 
     fun newPlayer(raceIndex: Int, classIndex: Int): Entity<Player, GameContext> {
-        val playerRace: PlayerRace = PlayerRace(Data.getRace(raceIndex))
-        val playerClass: PlayerClass= PlayerClass(Data.getClass(classIndex))
-
         return newGameEntityOfType(Player) {
             attributes(
                 EntityPosition(),
@@ -33,11 +32,24 @@ object EntityFactory {
                     ac = 10
                 ),
                 Experience(),
-                playerRace,
-                playerClass
+                PlayerRace(Data.getRace(raceIndex)),
+                PlayerClass(Data.getClass(classIndex))
             )
-            behaviors(InputReceiver)
             facets(Movable, CameraMover)
+            behaviors(InputReceiver)
         }
+    }
+
+    fun newMonster() = newGameEntityOfType(Monster) {
+        attributes(
+            EntityPosition(),
+            EntityTile(MONSTER),
+            Stats.create(
+                maxHp = 5,
+                ac = 8
+            )
+        )
+        facets(Movable)
+        behaviors()
     }
 }

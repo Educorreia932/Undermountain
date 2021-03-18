@@ -1,4 +1,6 @@
-package attributes
+package attributes.types
+
+import org.hexworks.amethyst.api.base.BaseEntityType
 
 enum class SpellComponent {
     V,
@@ -17,7 +19,9 @@ enum class MagicSchool {
     Transmutation
 }
 
-class Spell {
+class Spell(name: String) : BaseEntityType(
+    name = name
+) {
     val level: Int = 0
     val school: MagicSchool = MagicSchool.Abjuration
     val castingTime: Int = 0

@@ -29,5 +29,12 @@ object GameTileRepository {
         .withBackgroundColor(FLOOR_BACKGROUND)
         .withForegroundColor(ACCENT_COLOR)
         .buildCharacterTile()
+
+    val MONSTER = Tile.newBuilder()
+        .withCharacter('g')
+        .withBackgroundColor(FLOOR_BACKGROUND)
+        .withForegroundColor(ACCENT_COLOR)
+        .buildCharacterTile()
+
 }
 

@@ -1,0 +1,12 @@
+[
+    {
+        "id": "fire_bolt",
+        "name": "Fire Bolt",
+        "range": 120,
+        "level": 0,
+        "school": "Evocation",
+        "attack_type": "ranged",
+        "damage": "1d10",
+        "damage_type": "Fire"
+    }
+]

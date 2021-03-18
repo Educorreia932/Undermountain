@@ -12,9 +12,9 @@ object Data {
 
     val data: Map<DataType, JsonArray> = load()
 
-    private fun loadResource(file: String): String = javaClass.getResource(file).readText()
+    private fun loadResource(path: String): String = javaClass.getResource(path).readText()
 
-    fun load(): Map<DataType, JsonArray> {
+    private fun load(): Map<DataType, JsonArray> {
         return mapOf(
             DataType.Race to loadRaces(),
             DataType.Class to loadClasses()
@@ -22,13 +22,13 @@ object Data {
     }
 
     private fun loadRaces(): JsonArray {
-        val lines: String = loadResource("/5e-SRD-Races.json")
+        val lines: String = loadResource("/data/races.json")
 
         return Json.parseToJsonElement(lines) as JsonArray
     }
 
     private fun loadClasses(): JsonArray {
-        val lines: String = loadResource("/5e-SRD-Classes.json")
+        val lines: String = loadResource("/data/classes.json")
 
         return Json.parseToJsonElement(lines) as JsonArray
     }

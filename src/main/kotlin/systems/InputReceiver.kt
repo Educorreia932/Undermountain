@@ -28,6 +28,7 @@ object InputReceiver : BaseBehavior<GameContext>() {
 
             player.receiveMessage(MoveTo(context, player, newPosition))
         }
+
         return true
     }
 }

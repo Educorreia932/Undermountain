@@ -1,5 +1,6 @@
 package game
 
+import attributes.types.Monster
 import attributes.types.Player
 import builders.EntityFactory
 import builders.WorldBuilder
@@ -19,15 +20,15 @@ class GameBuilder(val worldSize: Size3D) {
         zLength = 1
     )
 
-    val world = WorldBuilder(worldSize)
+    private val world = WorldBuilder(worldSize)
         .makeCaves()
         .build(visibleSize = visibleSize)
 
     fun buildGame(): Game {
-
         prepareWorld()
 
         val player = addPlayer()
+        val monster = addMonster()
 
         return Game.create(
             player = player,
@@ -49,6 +50,18 @@ class GameBuilder(val worldSize: Size3D) {
         )
 
         return player
+    }
+
+    private fun addMonster(): GameEntity<Monster> {
+        val monster = EntityFactory.newMonster()
+
+        world.addAtEmptyPosition(
+            monster,
+            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), // 7
+            size = world.visibleSize.copy(zLength = 0)
+        )
+
+        return monster
     }
 
     companion object {
