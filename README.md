@@ -4,3 +4,17 @@ A roguelike game in development, using [Zircon](https://github.com/Hexworks/zirc
 
 ![Game screenshot](screenshot.png)
 
+## Roadmap
+
+- Creatures attributes
+- Menus
+    - Inventory   
+    - Character 
+    - Spells
+- Picking up and using items
+- Casting spells
+- Combat with creatures
+- Earning experience and leveling up
+- Character creation
+- Map generation
+- Monster AI

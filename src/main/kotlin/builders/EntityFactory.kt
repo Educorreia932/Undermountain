@@ -13,6 +13,7 @@ import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.amethyst.api.newEntityOfType
 import systems.CameraMover
 import systems.InputReceiver
+import systems.InventoryInspector
 import systems.Movable
 
 object EntityFactory {
@@ -33,9 +34,10 @@ object EntityFactory {
                 ),
                 Experience(),
                 PlayerRace(Data.getRace(raceIndex)),
-                PlayerClass(Data.getClass(classIndex))
+                PlayerClass(Data.getClass(classIndex)),
+                Inventory()
             )
-            facets(Movable, CameraMover)
+            facets(Movable, CameraMover, InventoryInspector)
             behaviors(InputReceiver)
         }
     }

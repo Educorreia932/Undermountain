@@ -22,5 +22,4 @@ class PlayerInformationFragment(
                     addComponent(it.toComponent(width))
                 }
         }
-
 }
