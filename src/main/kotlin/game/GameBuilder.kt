@@ -1,9 +1,9 @@
 package game
 
-import attributes.types.Monster
-import attributes.types.Player
 import builders.EntityFactory
 import builders.WorldBuilder
+import entities.Monster
+import entities.Player
 import extensions.GameEntity
 import extensions.GameItem
 import game.GameConfig.LOG_AREA_HEIGHT
@@ -30,7 +30,7 @@ class GameBuilder(val worldSize: Size3D) {
 
         val player = addPlayer()
         val monster = addMonster()
-        val sword = addItem()
+        val sword = addSword()
 
         return Game.create(
             player = player,
@@ -66,7 +66,7 @@ class GameBuilder(val worldSize: Size3D) {
         return monster
     }
     
-    private fun addItem(): GameItem {
+    private fun addSword(): GameItem {
         val item = EntityFactory.newSword()
         
         world.addAtEmptyPosition(

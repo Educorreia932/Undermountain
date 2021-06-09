@@ -1,7 +1,9 @@
 package extensions
 
-import attributes.types.Item
-import attributes.types.ItemHolder
+import entities.CombatItem
+import entities.EquipmentHolder
+import entities.Item
+import entities.ItemHolder
 import game.GameContext
 import org.hexworks.amethyst.api.Message
 import org.hexworks.amethyst.api.entity.Entity
@@ -16,3 +18,7 @@ typealias GameMessage = Message<GameContext>
 typealias GameItem = GameEntity<Item>
 
 typealias GameItemHolder = GameEntity<ItemHolder>
+
+typealias GameCombatItem = GameEntity<CombatItem>
+
+typealias GameEquipmentHolder = GameEntity<EquipmentHolder>

@@ -1,6 +1,6 @@
 package game
 
-import attributes.types.Player
+import entities.Player
 import extensions.GameEntity
 import world.World
 

@@ -5,6 +5,7 @@ import game.GameColors.FLOOR_BACKGROUND
 import game.GameColors.FLOOR_FOREGROUND
 import game.GameColors.WALL_BACKGROUND
 import game.GameColors.WALL_FOREGROUND
+import org.hexworks.zircon.api.color.ANSITileColor
 import org.hexworks.zircon.api.data.CharacterTile
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.graphics.Symbols
@@ -37,9 +38,15 @@ object GameTileRepository {
         .buildCharacterTile()
 
     val ITEM = Tile.newBuilder()
-        .withCharacter('l')
+        .withCharacter('i')
         .withBackgroundColor(FLOOR_BACKGROUND)
         .withForegroundColor(ACCENT_COLOR)
+        .buildCharacterTile()
+
+    val SWORD = Tile.newBuilder()
+        .withCharacter(')')
+        .withForegroundColor(ANSITileColor.BRIGHT_WHITE)
+        .withBackgroundColor(FLOOR_BACKGROUND)
         .buildCharacterTile()
 }
 

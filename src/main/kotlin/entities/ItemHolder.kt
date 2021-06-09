@@ -1,11 +1,11 @@
-package attributes.types
+package entities
 
 import attributes.Inventory
 import extensions.GameItem
 import extensions.GameItemHolder
 import org.hexworks.amethyst.api.entity.EntityType
 
-interface ItemHolder : EntityType
+interface ItemHolder: EntityType
 
 fun GameItemHolder.addItem(item: GameItem) = inventory.addItem(item)
 

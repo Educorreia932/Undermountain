@@ -1,7 +1,7 @@
 package systems
 
-import attributes.types.Item
-import attributes.types.addItem
+import entities.Item
+import entities.addItem
 import extensions.GameItem
 import extensions.filterType
 import game.GameContext

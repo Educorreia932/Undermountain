@@ -5,17 +5,17 @@ import org.hexworks.amethyst.api.base.BaseAttribute
 
 class Inventory : BaseAttribute() {
     private val currentItems = mutableListOf<GameItem>()
-    
+
     val items: List<GameItem>
         get() = currentItems.toList()
-    
+
     val size: Int
         get() = currentItems.count()
-    
-    val isFull: Boolean
+
+    private val isFull: Boolean
         get() = false
 
-    fun addItem(item: GameItem): Boolean {                       
+    fun addItem(item: GameItem): Boolean {
         return if (isFull.not()) {
             currentItems.add(item)
         } else false

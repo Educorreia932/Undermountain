@@ -1,6 +1,6 @@
 package systems
 
-import attributes.types.Player
+import entities.Player
 import extensions.position
 import game.GameContext
 import messages.MoveCamera

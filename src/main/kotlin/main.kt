@@ -15,6 +15,7 @@ fun main() {
     )
 
     val view = PlayView(tileGrid)
+    // val view = CharacterCreationView(tileGrid)
 
     view.dock()
 }

@@ -1,14 +1,15 @@
 package builders
 
 import attributes.*
-import attributes.types.Monster
-import attributes.types.Player
-import attributes.types.Sword
-import data.Data
+import attributes.classes.Fighter
+import attributes.races.Human
+import entities.Monster
+import entities.Player
+import entities.Sword
 import game.GameContext
-import game.GameTileRepository.ITEM
 import game.GameTileRepository.MONSTER
 import game.GameTileRepository.PLAYER
+import game.GameTileRepository.SWORD
 import org.hexworks.amethyst.api.builder.EntityBuilder
 import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
@@ -34,8 +35,8 @@ object EntityFactory {
                     ac = 10
                 ),
                 Experience(),
-                PlayerRace(Data.getRace(raceIndex)),
-                PlayerClass(Data.getClass(classIndex)),
+                Fighter(),
+                Human(),
                 Inventory()
             )
             facets(Movable, CameraMover, InventoryInspector, ItemPicker)
@@ -59,15 +60,16 @@ object EntityFactory {
     fun newSword() = newGameEntityOfType(Sword) {
         attributes(
             EntityPosition(),
-            EntityTile(ITEM),
+            EntityTile(SWORD),
             ItemIcon(
                 Tile.newBuilder()
-                    .withName("white gem")
+                    .withName("Short sword")
                     .withTileset(GraphicalTilesetResources.nethack16x16())
                     .buildGraphicalTile()
+            ),
+            WeaponStats(
+                damage = 6
             )
         )
-        facets()
-        behaviors()
     }
 }

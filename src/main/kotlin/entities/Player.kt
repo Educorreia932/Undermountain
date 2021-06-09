@@ -1,4 +1,4 @@
-package attributes.types
+package entities
 
 import attributes.Stats
 import extensions.GameEntity
@@ -16,7 +16,7 @@ open class Creature(name: String): BaseEntityType(
 
 object Player : Creature(
     name = "player"
-), ExperienceGainer, ItemHolder
+), ExperienceGainer, ItemHolder, EquipmentHolder
 
 object Monster : Creature(
     name = "monster"

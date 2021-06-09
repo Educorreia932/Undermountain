@@ -1,6 +1,6 @@
 package views.fragment
 
-import attributes.types.iconTile
+import entities.iconTile
 import extensions.GameItem
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.Fragment

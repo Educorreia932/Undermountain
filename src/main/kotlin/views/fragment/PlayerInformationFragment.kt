@@ -1,7 +1,7 @@
 package views.fragment
 
 import attributes.DisplayableAttribute
-import attributes.types.Player
+import entities.Player
 import extensions.GameEntity
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.Fragment

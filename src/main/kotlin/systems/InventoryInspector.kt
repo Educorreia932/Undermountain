@@ -1,6 +1,6 @@
 package systems
 
-import attributes.types.inventory
+import entities.inventory
 import game.GameConfig
 import game.GameContext
 import messages.InspectInventory

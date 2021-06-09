@@ -1,4 +1,4 @@
-package attributes.types
+package entities
 
 import org.hexworks.amethyst.api.base.BaseEntityType
 
