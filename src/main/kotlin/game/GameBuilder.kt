@@ -5,6 +5,7 @@ import attributes.types.Player
 import builders.EntityFactory
 import builders.WorldBuilder
 import extensions.GameEntity
+import extensions.GameItem
 import game.GameConfig.LOG_AREA_HEIGHT
 import game.GameConfig.SIDEBAR_WIDTH
 import game.GameConfig.WINDOW_HEIGHT
@@ -29,6 +30,7 @@ class GameBuilder(val worldSize: Size3D) {
 
         val player = addPlayer()
         val monster = addMonster()
+        val sword = addItem()
 
         return Game.create(
             player = player,
@@ -45,7 +47,7 @@ class GameBuilder(val worldSize: Size3D) {
 
         world.addAtEmptyPosition(
             player,
-            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), // 7
+            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), 
             size = world.visibleSize.copy(zLength = 0)
         )
 
@@ -57,11 +59,23 @@ class GameBuilder(val worldSize: Size3D) {
 
         world.addAtEmptyPosition(
             monster,
-            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), // 7
+            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), 
             size = world.visibleSize.copy(zLength = 0)
         )
 
         return monster
+    }
+    
+    private fun addItem(): GameItem {
+        val item = EntityFactory.newSword()
+        
+        world.addAtEmptyPosition(
+            item,
+            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), 
+            size = world.visibleSize.copy(zLength = 0)
+        )
+        
+        return item
     }
 
     companion object {

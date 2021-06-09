@@ -3,8 +3,10 @@ package builders
 import attributes.*
 import attributes.types.Monster
 import attributes.types.Player
+import attributes.types.Sword
 import data.Data
 import game.GameContext
+import game.GameTileRepository.ITEM
 import game.GameTileRepository.MONSTER
 import game.GameTileRepository.PLAYER
 import org.hexworks.amethyst.api.builder.EntityBuilder
@@ -52,6 +54,15 @@ object EntityFactory {
             )
         )
         facets(Movable)
+        behaviors()
+    }
+
+    fun newSword() = newGameEntityOfType(Sword) {
+        attributes(
+            EntityPosition(),
+            EntityTile(ITEM),
+        )
+        facets()
         behaviors()
     }
 }

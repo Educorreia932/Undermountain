@@ -36,5 +36,10 @@ object GameTileRepository {
         .withForegroundColor(ACCENT_COLOR)
         .buildCharacterTile()
 
+    val ITEM = Tile.newBuilder()
+        .withCharacter('l')
+        .withBackgroundColor(FLOOR_BACKGROUND)
+        .withForegroundColor(ACCENT_COLOR)
+        .buildCharacterTile()
 }
 
