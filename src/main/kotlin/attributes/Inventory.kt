@@ -12,11 +12,16 @@ class Inventory : BaseAttribute() {
     val size: Int
         get() = currentItems.count()
     
-    fun addItem(item: GameItem) {
-        currentItems.add(item)
+    val isFull: Boolean
+        get() = false
+
+    fun addItem(item: GameItem): Boolean {                       
+        return if (isFull.not()) {
+            currentItems.add(item)
+        } else false
     }
 
-    fun removeItem(item: GameItem) {
-        currentItems.remove(item)
+    fun removeItem(item: GameItem): Boolean {
+        return currentItems.remove(item)
     }
 }

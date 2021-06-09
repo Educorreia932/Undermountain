@@ -6,6 +6,7 @@ import extensions.position
 import game.GameContext
 import messages.InspectInventory
 import messages.MoveTo
+import messages.PickItemUp
 import org.hexworks.amethyst.api.base.BaseBehavior
 import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
@@ -24,8 +25,9 @@ object InputReceiver : BaseBehavior<GameContext>() {
                 KeyCode.LEFT -> player.moveTo(currentPos.withRelativeX(-1), context)
                 KeyCode.DOWN -> player.moveTo(currentPos.withRelativeY(1), context)
                 KeyCode.RIGHT -> player.moveTo(currentPos.withRelativeX(1), context)
+                KeyCode.KEY_G -> player.pickItemUp(currentPos, context)
                 KeyCode.KEY_I -> player.inspectInventory(currentPos, context)
-                
+
                 else -> {
                     // logger.debug("UI Event ($uiEvent) does not have a corresponding command, it is ignored.")
                 }
@@ -38,7 +40,11 @@ object InputReceiver : BaseBehavior<GameContext>() {
     private suspend fun GameEntity<Player>.moveTo(position: Position3D, context: GameContext) {
         receiveMessage(MoveTo(context, this, position))
     }
-    
+
+    private suspend fun GameEntity<Player>.pickItemUp(position: Position3D, context: GameContext) {  
+        receiveMessage(PickItemUp(context, this, position))
+    }
+
     private suspend fun GameEntity<Player>.inspectInventory(position: Position3D, context: GameContext) {
         receiveMessage(InspectInventory(context, this, position))
     }

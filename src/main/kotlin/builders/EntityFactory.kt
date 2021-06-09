@@ -13,10 +13,9 @@ import org.hexworks.amethyst.api.builder.EntityBuilder
 import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.amethyst.api.newEntityOfType
-import systems.CameraMover
-import systems.InputReceiver
-import systems.InventoryInspector
-import systems.Movable
+import org.hexworks.zircon.api.GraphicalTilesetResources
+import org.hexworks.zircon.api.data.Tile
+import systems.*
 
 object EntityFactory {
     private fun <T : EntityType> newGameEntityOfType(
@@ -39,7 +38,7 @@ object EntityFactory {
                 PlayerClass(Data.getClass(classIndex)),
                 Inventory()
             )
-            facets(Movable, CameraMover, InventoryInspector)
+            facets(Movable, CameraMover, InventoryInspector, ItemPicker)
             behaviors(InputReceiver)
         }
     }
@@ -61,6 +60,12 @@ object EntityFactory {
         attributes(
             EntityPosition(),
             EntityTile(ITEM),
+            ItemIcon(
+                Tile.newBuilder()
+                    .withName("white gem")
+                    .withTileset(GraphicalTilesetResources.nethack16x16())
+                    .buildGraphicalTile()
+            )
         )
         facets()
         behaviors()
