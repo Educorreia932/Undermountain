@@ -37,7 +37,8 @@ object EntityFactory {
                 Experience(),
                 Fighter(),
                 Human(),
-                Inventory()
+                Inventory(),
+                Equipment(initialWeapon = newSword())
             )
             facets(Movable, CameraMover, InventoryInspector, ItemPicker)
             behaviors(InputReceiver)
