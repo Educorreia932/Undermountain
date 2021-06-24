@@ -29,7 +29,7 @@ object EntityFactory {
             attributes(
                 EntityPosition(),
                 EntityTile(PLAYER),
-                Attributes(),
+                CreatureAttributes(),
                 Stats.create(
                     maxHp = 10,
                     ac = 10

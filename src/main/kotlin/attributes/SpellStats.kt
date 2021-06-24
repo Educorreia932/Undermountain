@@ -20,7 +20,11 @@ enum class MagicSchool {
 }
 
 class SpellStats(
-    val school: MagicSchool
+    val level: Int,
+    val school: MagicSchool,
+    val component: List<SpellComponent>
+    // val range
+    // val duration
 ) : BaseAttribute() {
     
 }
