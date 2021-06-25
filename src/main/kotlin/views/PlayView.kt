@@ -1,5 +1,6 @@
 package views
 
+import events.GameLogEvent
 import game.Game
 import game.GameBuilder
 import game.GameConfig
@@ -9,6 +10,8 @@ import game.GameConfig.WINDOW_HEIGHT
 import game.GameConfig.WINDOW_WIDTH
 import game.GameTileRepository
 import org.hexworks.cobalt.databinding.api.extension.toProperty
+import org.hexworks.cobalt.events.api.KeepSubscription
+import org.hexworks.cobalt.events.api.subscribeTo
 import org.hexworks.zircon.api.ComponentDecorations.box
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.ColorTheme
@@ -18,6 +21,7 @@ import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.hexworks.zircon.api.uievent.Processed
 import org.hexworks.zircon.api.view.base.BaseView
+import org.hexworks.zircon.internal.Zircon
 import org.hexworks.zircon.internal.game.impl.GameAreaComponentRenderer
 import views.fragment.PlayerInformationFragment
 
@@ -62,6 +66,16 @@ class PlayView(
         screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { event, _ ->
             game.world.update(screen, event, game)
             Processed
+        }
+        
+        Zircon.eventBus.subscribeTo<GameLogEvent> { (text) ->
+            logArea.addParagraph(
+                paragraph = text,
+                withNewLine = false,
+                withTypingEffectSpeedInMs = 10
+            )
+            
+            KeepSubscription
         }
     }
 }

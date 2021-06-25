@@ -41,12 +41,12 @@ class World(
 
     /**
      * Adds the given [Entity] at the given [Position3D].
-     * Has no effect if this world already contains the
-     * given [Entity].
+     * Has no effect if this world already contains the given [Entity].
      */
     fun addEntity(entity: Entity<EntityType, GameContext>, position: Position3D) {
         entity.position = position
         engine.addEntity(entity)
+        
         fetchBlockAt(position).map {
             it.addEntity(entity)
         }
@@ -70,7 +70,7 @@ class World(
     /**
      * Finds an empty location within the given area (offset and size) on this [World].
      */
-    fun findEmptyLocationWithin(offset: Position3D, size: Size3D): Maybe<Position3D> { // 8
+    private fun findEmptyLocationWithin(offset: Position3D, size: Size3D): Maybe<Position3D> { // 8
         var position = Maybe.empty<Position3D>()
         val maxTries = 10
         var currentTry = 0

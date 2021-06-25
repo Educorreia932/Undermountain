@@ -10,6 +10,7 @@ import game.GameTileRepository.GOBLIN
 import game.GameTileRepository.PLAYER
 import game.GameTileRepository.SWORD
 import game.GameTileRepository.WALL
+import messages.Attack
 import org.hexworks.amethyst.api.builder.EntityBuilder
 import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
@@ -29,6 +30,7 @@ object EntityFactory {
             attributes(
                 EntityPosition(),
                 EntityTile(PLAYER),
+                EntityActions(Attack::class),
                 CreatureAttributes(),
                 Stats.create(
                     maxHp = 10,
@@ -38,7 +40,7 @@ object EntityFactory {
                 Fighter(),
                 Human(),
                 Inventory(),
-                Equipment(initialWeapon = newSword())
+                Equipment(initialWeapon = newSword()),
             )
             facets(Movable, CameraMover, InventoryInspector, ItemPicker)
             behaviors(InputReceiver)
@@ -49,6 +51,7 @@ object EntityFactory {
         attributes(
             EntityPosition(),
             EntityTile(GOBLIN),
+            BlockOccupier,
             CreatureAttributes.create(8, 14, 10, 10, 8, 8),
             Stats.create(
                 maxHp = 7,
@@ -56,6 +59,7 @@ object EntityFactory {
             ),
             Equipment(initialWeapon = newScimitar())
         )
+        facets(Attackable, Destructible)
     }
 
     fun newSword() = newGameEntityOfType(Sword) {

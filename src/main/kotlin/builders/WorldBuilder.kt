@@ -37,6 +37,7 @@ class WorldBuilder(private val worldSize: Size3D) {
                 val (x, y, z) = pos
                 var floors = 0
                 var rocks = 0
+                
                 pos.sameLevelNeighborsShuffled().plus(pos).forEach { neighbor ->
                     blocks.whenPresent(neighbor) { block ->
                         if (block.isEmptyFloor)

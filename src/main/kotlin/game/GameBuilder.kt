@@ -6,6 +6,7 @@ import entities.Goblin
 import entities.Player
 import extensions.GameEntity
 import extensions.GameItem
+import extensions.position
 import game.GameConfig.LOG_AREA_HEIGHT
 import game.GameConfig.SIDEBAR_WIDTH
 import game.GameConfig.WINDOW_HEIGHT
@@ -29,7 +30,7 @@ class GameBuilder(val worldSize: Size3D) {
         prepareWorld()
 
         val player = addPlayer()
-        addMonster()
+        addMonster(player.position)
         addSword()
 
         return Game.create(
@@ -54,13 +55,12 @@ class GameBuilder(val worldSize: Size3D) {
         return player
     }
 
-    private fun addMonster(): GameEntity<Goblin> {
+    private fun addMonster(playerPosition: Position3D): GameEntity<Goblin> {
         val monster = EntityFactory.newGoblin()
 
-        world.addAtEmptyPosition(
+        world.addEntity(
             monster,
-            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1),
-            size = world.visibleSize.copy(zLength = 0)
+            playerPosition.withRelativeY(-1)
         )
 
         return monster

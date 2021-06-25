@@ -28,7 +28,6 @@ object GameTileRepository {
 
     val PLAYER = Tile.newBuilder()
         .withCharacter('@')
-        .withBackgroundColor(FLOOR_BACKGROUND)
         .withForegroundColor(ACCENT_COLOR)
         .buildCharacterTile()
 
@@ -36,12 +35,6 @@ object GameTileRepository {
         .withCharacter('g')
         .withBackgroundColor(FLOOR_BACKGROUND)
         .withForegroundColor(AMBER)
-        .buildCharacterTile()
-
-    val ITEM = Tile.newBuilder()
-        .withCharacter('i')
-        .withBackgroundColor(FLOOR_BACKGROUND)
-        .withForegroundColor(ACCENT_COLOR)
         .buildCharacterTile()
 
     val SWORD = Tile.newBuilder()

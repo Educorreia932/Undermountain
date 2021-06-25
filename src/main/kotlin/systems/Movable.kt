@@ -2,6 +2,7 @@ package systems
 
 import entities.Player
 import extensions.position
+import extensions.tryActionsOn
 import game.GameContext
 import messages.MoveCamera
 import messages.MoveTo
@@ -19,7 +20,11 @@ object Movable : BaseFacet<GameContext, MoveTo>(MoveTo::class) {
         var result: Response = Pass
 
         world.fetchBlockAtOrNull(position)?.let { block ->
-            if (!block.isOccupied)
+            if (block.isOccupied) {
+                result = entity.tryActionsOn(context, block.occupier.get())
+            }
+            
+            else {
                 if (world.moveEntity(entity, position)) {
                     result = if (entity.type == Player) {
                         MessageResponse(
@@ -31,6 +36,7 @@ object Movable : BaseFacet<GameContext, MoveTo>(MoveTo::class) {
                         )
                     } else Consumed
                 }
+            }
         }
         
         return result

@@ -15,7 +15,7 @@ import org.hexworks.zircon.api.data.base.BaseBlock
 
 class GameBlock(
     private var defaultTile: Tile = FLOOR,
-    private val currentEntities: MutableList<GameEntity<EntityType>> = mutableListOf(),  // 1
+    private val currentEntities: MutableList<GameEntity<EntityType>> = mutableListOf(), 
 ) : BaseBlock<Tile>(
     emptyTile = Tile.empty(),
     tiles = persistentMapOf(BlockTileType.CONTENT to defaultTile)
@@ -33,7 +33,7 @@ class GameBlock(
         get() = currentEntities.toList()
     
     val occupier: Maybe<GameEntity<EntityType>>
-        get() = Maybe.ofNullable(currentEntities.firstOrNull {it.occupiesBlock})
+        get() = Maybe.ofNullable(currentEntities.firstOrNull { it.occupiesBlock })
     
     val isOccupied: Boolean
         get() = occupier.isPresent

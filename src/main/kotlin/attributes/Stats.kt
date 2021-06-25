@@ -31,7 +31,7 @@ data class Stats(
     val acProperty: Property<Int>
 ) : BaseAttribute() {
     val maxHp: Int by maxHpProperty.asDelegate()
-    val currentHp: Int by currentHpProperty.asDelegate()
+    var currentHp: Int by currentHpProperty.asDelegate()
     val ac: Int by acProperty.asDelegate()
 //    val size: CreatureSize
 //    val alignment: Alignment
