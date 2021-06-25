@@ -1,5 +1,6 @@
 package extensions
 
+import attributes.flags.BlockOccupier
 import game.GameContext
 import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
@@ -15,3 +16,6 @@ inline fun <reified T : EntityType> AnyGameEntity.whenTypeIs(fn: (Entity<T, Game
         fn(this as Entity<T, GameContext>)
     }
 }
+
+val AnyGameEntity.occupiesBlock: Boolean
+    get() = findAttribute(BlockOccupier::class).isPresent

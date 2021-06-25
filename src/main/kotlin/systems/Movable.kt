@@ -18,18 +18,21 @@ object Movable : BaseFacet<GameContext, MoveTo>(MoveTo::class) {
         val previousPosition = entity.position
         var result: Response = Pass
 
-        if (world.moveEntity(entity, position)) {
-            result = if (entity.type == Player) {
-                MessageResponse(
-                    MoveCamera(
-                        context = context,
-                        source = entity,
-                        previousPosition = previousPosition
-                    )
-                )
-            } else Consumed
+        world.fetchBlockAtOrNull(position)?.let { block ->
+            if (!block.isOccupied)
+                if (world.moveEntity(entity, position)) {
+                    result = if (entity.type == Player) {
+                        MessageResponse(
+                            MoveCamera(
+                                context = context,
+                                source = entity,
+                                previousPosition = previousPosition
+                            )
+                        )
+                    } else Consumed
+                }
         }
-
+        
         return result
     }
 }

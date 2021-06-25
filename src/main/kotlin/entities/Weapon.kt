@@ -12,3 +12,7 @@ val GameEntity<Weapon>.attackValue: Int
 object Sword : BaseEntityType(
     name = "Sword",
 ), Weapon
+
+object Scimitar : BaseEntityType(
+    name = "Scimitar" 
+), Weapon

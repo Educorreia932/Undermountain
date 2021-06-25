@@ -2,14 +2,14 @@ package builders
 
 import attributes.*
 import attributes.classes.Fighter
+import attributes.flags.BlockOccupier
 import attributes.races.Human
-import entities.Monster
-import entities.Player
-import entities.Sword
+import entities.*
 import game.GameContext
-import game.GameTileRepository.MONSTER
+import game.GameTileRepository.GOBLIN
 import game.GameTileRepository.PLAYER
 import game.GameTileRepository.SWORD
+import game.GameTileRepository.WALL
 import org.hexworks.amethyst.api.builder.EntityBuilder
 import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
@@ -24,7 +24,7 @@ object EntityFactory {
         init: EntityBuilder<T, GameContext>.() -> Unit
     ) = newEntityOfType(type, init)
 
-    fun newPlayer(raceIndex: Int, classIndex: Int): Entity<Player, GameContext> {
+    fun newPlayer(): Entity<Player, GameContext> {
         return newGameEntityOfType(Player) {
             attributes(
                 EntityPosition(),
@@ -45,17 +45,17 @@ object EntityFactory {
         }
     }
 
-    fun newMonster() = newGameEntityOfType(Monster) {
+    fun newGoblin() = newGameEntityOfType(Goblin) {
         attributes(
             EntityPosition(),
-            EntityTile(MONSTER),
+            EntityTile(GOBLIN),
+            CreatureAttributes.create(8, 14, 10, 10, 8, 8),
             Stats.create(
-                maxHp = 5,
-                ac = 8
-            )
+                maxHp = 7,
+                ac = 15
+            ),
+            Equipment(initialWeapon = newScimitar())
         )
-        facets(Movable)
-        behaviors()
     }
 
     fun newSword() = newGameEntityOfType(Sword) {
@@ -71,6 +71,30 @@ object EntityFactory {
             WeaponStats(
                 damage = 6
             )
+        )
+    }
+    
+    private fun newScimitar() = newGameEntityOfType(Scimitar) {
+        attributes(
+            EntityPosition(),
+            EntityTile(SWORD),
+            ItemIcon(
+                Tile.newBuilder()
+                    .withName("Short sword")
+                    .withTileset(GraphicalTilesetResources.nethack16x16())
+                    .buildGraphicalTile()
+            ),
+            WeaponStats(
+                damage = 6
+            )
+        )
+    }
+    
+    fun newWall() = newGameEntityOfType(Wall) {
+        attributes(
+            EntityPosition(),
+            BlockOccupier,
+            EntityTile(WALL)
         )
     }
 }

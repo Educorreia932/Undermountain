@@ -60,4 +60,21 @@ class CreatureAttributes(
             }
         }
 
+    companion object {
+        fun create(
+            strength: Int,
+            dexterity: Int,
+            constitution: Int,
+            wisdom: Int,
+            intelligence: Int,
+            charisma: Int
+        ) = CreatureAttributes(
+            CreatureAttribute(strength),
+            CreatureAttribute(dexterity),
+            CreatureAttribute(constitution),
+            CreatureAttribute(wisdom),
+            CreatureAttribute(intelligence),
+            CreatureAttribute(charisma),
+        )
+    }
 }

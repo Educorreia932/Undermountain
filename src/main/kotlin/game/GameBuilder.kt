@@ -2,7 +2,7 @@ package game
 
 import builders.EntityFactory
 import builders.WorldBuilder
-import entities.Monster
+import entities.Goblin
 import entities.Player
 import extensions.GameEntity
 import extensions.GameItem
@@ -29,8 +29,8 @@ class GameBuilder(val worldSize: Size3D) {
         prepareWorld()
 
         val player = addPlayer()
-        val monster = addMonster()
-        val sword = addSword()
+        addMonster()
+        addSword()
 
         return Game.create(
             player = player,
@@ -43,38 +43,38 @@ class GameBuilder(val worldSize: Size3D) {
     }
 
     private fun addPlayer(): GameEntity<Player> {
-        val player = EntityFactory.newPlayer(0, 0)
+        val player = EntityFactory.newPlayer()
 
         world.addAtEmptyPosition(
             player,
-            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), 
+            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1),
             size = world.visibleSize.copy(zLength = 0)
         )
 
         return player
     }
 
-    private fun addMonster(): GameEntity<Monster> {
-        val monster = EntityFactory.newMonster()
+    private fun addMonster(): GameEntity<Goblin> {
+        val monster = EntityFactory.newGoblin()
 
         world.addAtEmptyPosition(
             monster,
-            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), 
+            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1),
             size = world.visibleSize.copy(zLength = 0)
         )
 
         return monster
     }
-    
+
     private fun addSword(): GameItem {
         val item = EntityFactory.newSword()
-        
+
         world.addAtEmptyPosition(
             item,
-            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1), 
+            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1),
             size = world.visibleSize.copy(zLength = 0)
         )
-        
+
         return item
     }
 

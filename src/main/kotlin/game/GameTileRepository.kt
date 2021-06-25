@@ -1,6 +1,7 @@
 package game
 
 import game.GameColors.ACCENT_COLOR
+import game.GameColors.AMBER
 import game.GameColors.FLOOR_BACKGROUND
 import game.GameColors.FLOOR_FOREGROUND
 import game.GameColors.WALL_BACKGROUND
@@ -31,10 +32,10 @@ object GameTileRepository {
         .withForegroundColor(ACCENT_COLOR)
         .buildCharacterTile()
 
-    val MONSTER = Tile.newBuilder()
+    val GOBLIN = Tile.newBuilder()
         .withCharacter('g')
         .withBackgroundColor(FLOOR_BACKGROUND)
-        .withForegroundColor(ACCENT_COLOR)
+        .withForegroundColor(AMBER)
         .buildCharacterTile()
 
     val ITEM = Tile.newBuilder()

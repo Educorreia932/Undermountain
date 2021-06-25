@@ -18,6 +18,6 @@ object Player : Creature(
     name = "player"
 ), ExperienceGainer, ItemHolder, EquipmentHolder
 
-object Monster : Creature(
-    name = "monster"
+object Goblin : Creature(
+    name = "goblin"
 )
