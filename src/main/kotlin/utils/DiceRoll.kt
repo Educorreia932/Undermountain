@@ -5,6 +5,6 @@ class DiceRoll(
     private val value: Int
 ) {
     fun roll(): Int {
-        return ((0..quantity).map { (0..value).random() }).sum()
+        return ((0 until quantity).map { (1..value).random() }).sum()
     }
 }
