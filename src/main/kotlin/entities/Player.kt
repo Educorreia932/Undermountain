@@ -1,5 +1,6 @@
 package entities
 
+import attributes.CreatureAttributes
 import attributes.Equipment
 import attributes.Stats
 import extensions.GameEntity
@@ -13,6 +14,9 @@ val GameEntity<Combatant>.combatStats: Stats
 
 val GameEntity<Combatant>.equippedWeapon: GameEntity<Weapon>
     get() = findAttribute(Equipment::class).get().weapon
+
+val GameEntity<Combatant>.creatureAttributes: CreatureAttributes
+    get() = findAttribute(CreatureAttributes::class).get()
 
 open class Creature(name: String): BaseEntityType(
     name = name

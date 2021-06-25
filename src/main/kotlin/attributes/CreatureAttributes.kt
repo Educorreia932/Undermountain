@@ -14,13 +14,14 @@ enum class AttributeType {
 }
 
 class CreatureAttributes(
-    strength: CreatureAttribute = CreatureAttribute(10),
-    dexterity: CreatureAttribute = CreatureAttribute(10),
-    constitution: CreatureAttribute = CreatureAttribute(10),
-    wisdom: CreatureAttribute = CreatureAttribute(10),
-    intelligence: CreatureAttribute = CreatureAttribute(10),
-    charisma: CreatureAttribute = CreatureAttribute(10)
+    var strength: CreatureAttribute = CreatureAttribute(10),
+    var dexterity: CreatureAttribute = CreatureAttribute(10),
+    var constitution: CreatureAttribute = CreatureAttribute(10),
+    var wisdom: CreatureAttribute = CreatureAttribute(10),
+    var intelligence: CreatureAttribute = CreatureAttribute(10),
+    var charisma: CreatureAttribute = CreatureAttribute(10)
 ) : DisplayableAttribute {
+
     override val id = UUID.randomUUID()
 
     val attributes = mapOf(

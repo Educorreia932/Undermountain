@@ -4,7 +4,5 @@ import org.hexworks.amethyst.api.base.BaseAttribute
 
 class ItemStats(
     // Cost
-    // Weight
-) : BaseAttribute() {
-   
-}
+    weight: Int = 0
+) : BaseAttribute()
