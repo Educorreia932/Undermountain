@@ -1,6 +1,8 @@
 package systems
 
+import entities.attackValue
 import entities.combatStats
+import entities.equippedWeapon
 import extensions.hasNoHealthLeft
 import extensions.isPlayer
 import functions.logGameEvent
@@ -17,7 +19,7 @@ object Attackable: BaseFacet<GameContext, Attack>(Attack::class) {
         val (context, attacker, target) = message
         
         return if (attacker.isPlayer || target.isPlayer) {
-            val damage = 5
+            val damage = attacker.equippedWeapon.attackValue.roll()
             
             target.combatStats.currentHp -= damage
 

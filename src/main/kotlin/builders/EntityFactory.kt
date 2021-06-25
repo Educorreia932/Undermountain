@@ -1,10 +1,11 @@
 package builders
 
 import attributes.*
-import attributes.classes.Fighter
 import attributes.flags.BlockOccupier
-import attributes.races.Human
-import entities.*
+import entities.Goblin
+import entities.Player
+import entities.Scimitar
+import entities.Wall
 import game.GameContext
 import game.GameTileRepository.GOBLIN
 import game.GameTileRepository.PLAYER
@@ -18,6 +19,7 @@ import org.hexworks.amethyst.api.newEntityOfType
 import org.hexworks.zircon.api.GraphicalTilesetResources
 import org.hexworks.zircon.api.data.Tile
 import systems.*
+import utils.DiceRoll
 
 object EntityFactory {
     private fun <T : EntityType> newGameEntityOfType(
@@ -37,10 +39,8 @@ object EntityFactory {
                     ac = 10
                 ),
                 Experience(),
-                Fighter(),
-                Human(),
                 Inventory(),
-                Equipment(initialWeapon = newSword()),
+                Equipment(initialWeapon = newScimitar()),
             )
             facets(Movable, CameraMover, InventoryInspector, ItemPicker)
             behaviors(InputReceiver)
@@ -62,7 +62,7 @@ object EntityFactory {
         facets(Attackable, Destructible)
     }
 
-    fun newSword() = newGameEntityOfType(Sword) {
+    fun newScimitar() = newGameEntityOfType(Scimitar) {
         attributes(
             EntityPosition(),
             EntityTile(SWORD),
@@ -73,23 +73,8 @@ object EntityFactory {
                     .buildGraphicalTile()
             ),
             WeaponStats(
-                damage = 6
-            )
-        )
-    }
-    
-    private fun newScimitar() = newGameEntityOfType(Scimitar) {
-        attributes(
-            EntityPosition(),
-            EntityTile(SWORD),
-            ItemIcon(
-                Tile.newBuilder()
-                    .withName("Short sword")
-                    .withTileset(GraphicalTilesetResources.nethack16x16())
-                    .buildGraphicalTile()
-            ),
-            WeaponStats(
-                damage = 6
+                damage = DiceRoll(1, 6),
+                damageType = DamageType.Slashing
             )
         )
     }

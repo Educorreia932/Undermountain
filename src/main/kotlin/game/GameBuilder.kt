@@ -67,7 +67,7 @@ class GameBuilder(val worldSize: Size3D) {
     }
 
     private fun addSword(): GameItem {
-        val item = EntityFactory.newSword()
+        val item = EntityFactory.newScimitar()
 
         world.addAtEmptyPosition(
             item,

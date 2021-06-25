@@ -11,7 +11,7 @@ import org.hexworks.cobalt.databinding.api.property.Property
 class Equipment(initialWeapon: GameEntity<Weapon>): BaseAttribute() {
     private val weaponProperty: Property<GameEntity<Weapon>> = createPropertyFrom(initialWeapon)
 
-    private val weapon: GameEntity<Weapon> by weaponProperty.asDelegate()
+    val weapon: GameEntity<Weapon> by weaponProperty.asDelegate()
     
     fun equip(inventory: Inventory, combatItem: GameCombatItem): GameCombatItem {
         combatItem.whenTypeIs<Weapon> {

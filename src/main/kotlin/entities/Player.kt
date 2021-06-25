@@ -1,5 +1,6 @@
 package entities
 
+import attributes.Equipment
 import attributes.Stats
 import extensions.GameEntity
 import org.hexworks.amethyst.api.base.BaseEntityType
@@ -9,6 +10,9 @@ interface Combatant : EntityType
 
 val GameEntity<Combatant>.combatStats: Stats
     get() = findAttribute(Stats::class).get()
+
+val GameEntity<Combatant>.equippedWeapon: GameEntity<Weapon>
+    get() = findAttribute(Equipment::class).get().weapon
 
 open class Creature(name: String): BaseEntityType(
     name = name
