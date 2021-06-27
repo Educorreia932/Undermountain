@@ -4,6 +4,8 @@ import entities.Item
 import entities.addItem
 import extensions.GameItem
 import extensions.filterType
+import extensions.isPlayer
+import functions.logGameEvent
 import game.GameContext
 import messages.PickItemUp
 import org.hexworks.amethyst.api.Consumed
@@ -22,10 +24,10 @@ object ItemPicker: BaseFacet<GameContext, PickItemUp>(PickItemUp::class) {
             if (itemHolder.addItem(item)) {
                 world.removeEntity(item)
                 
-//                val subject = if (itemHolder.isPlayer) "You" else "The $itemHolder" 
-//                val verb = if (itemHolder.isPlayer) "pick up" else "picks up"
+                val subject = if (itemHolder.isPlayer) "You" else "The $itemHolder" 
+                val verb = if (itemHolder.isPlayer) "pick up" else "picks up"
 
-//                logGameEvent("$subject $verb the $item.", ItemPicker)
+                logGameEvent("$subject $verb the $item.", ItemPicker)
             }
         }
         

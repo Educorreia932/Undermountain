@@ -1,15 +1,18 @@
 package views
 
+import builders.CharacterBuilder
+import game.GameBuilder
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
+import org.hexworks.zircon.api.component.RadioButton
 import org.hexworks.zircon.api.component.RadioButtonGroup
 import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.view.base.BaseView
 
 class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
-    override fun onDock() {
+    init {
         screen.theme = ColorThemes.monokaiBlue()
 
         val panel = Components.panel()
@@ -21,18 +24,30 @@ class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
             .withPosition(1, 1)
             .build()
 
-        val header = Components.header()
-            .withPosition(1, 1)
-            .withText("Race")
+        val raceGroup: RadioButtonGroup = Components.radioButtonGroup().build()
+        val radiobutton: RadioButton = Components.radioButton()
+            .withText("Fighter")
+            .withKey("Fighter")
             .build()
 
-        val raceGroup: RadioButtonGroup = Components.radioButtonGroup().build()
+        raceGroup.addComponent(radiobutton)
 
-        panel.addComponents(header)
+        panel.addComponents(radiobutton)
 
-        screen.addComponent(panel)
+        val readyButton = Components.button()
+            .withText("Ready")
+            .build()
 
-        var y = 3
+        val player = CharacterBuilder()
+            .withRace()
+            .withClass()
+            .withAttributes()
+            .build()
+        
+        readyButton.onActivated {
+            replaceWith(PlayView(tileGrid, game = GameBuilder.create(player)))
+        }
+
+        screen.addComponents(panel, readyButton)
     }
-
 }

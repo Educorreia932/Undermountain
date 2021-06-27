@@ -1,10 +1,6 @@
 package systems
 
-import entities.attackValue
-import entities.combatStats
-import entities.creatureAttributes
-import entities.equippedWeapon
-import extensions.hasNoHealthLeft
+import entities.*
 import extensions.isPlayer
 import functions.logGameEvent
 import game.GameContext
@@ -23,9 +19,10 @@ object Attackable : BaseFacet<GameContext, Attack>(Attack::class) {
         return if (attacker.isPlayer || target.isPlayer) {
             val attackRoll = DiceRoll(1, 20).roll() + 2 + attacker.creatureAttributes.strength.getModifier()
             println(attackRoll)
-            
+
             if (attackRoll < target.combatStats.ac)
                 logGameEvent("The $attacker misses!", Attackable)
+            
             else {
                 val damage = attacker.equippedWeapon.attackValue.roll()
 

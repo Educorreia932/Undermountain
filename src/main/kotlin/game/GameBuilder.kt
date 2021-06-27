@@ -15,7 +15,7 @@ import game.GameConfig.WORLD_SIZE
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
-class GameBuilder(val worldSize: Size3D) {
+class GameBuilder(val worldSize: Size3D, val player: GameEntity<Player>) {
     private val visibleSize = Size3D.create(
         xLength = WINDOW_WIDTH - SIDEBAR_WIDTH,
         yLength = WINDOW_HEIGHT - LOG_AREA_HEIGHT,
@@ -25,11 +25,11 @@ class GameBuilder(val worldSize: Size3D) {
     private val world = WorldBuilder(worldSize)
         .makeCaves()
         .build(visibleSize = visibleSize)
-
+    
     fun buildGame(): Game {
         prepareWorld()
 
-        val player = addPlayer()
+        val player = addPlayer(player)
         addMonster(player.position)
         addSword()
 
@@ -43,9 +43,7 @@ class GameBuilder(val worldSize: Size3D) {
         world.scrollUpBy(world.actualSize.zLength)
     }
 
-    private fun addPlayer(): GameEntity<Player> {
-        val player = EntityFactory.newPlayer()
-
+    private fun addPlayer(player: GameEntity<Player>): GameEntity<Player> {
         world.addAtEmptyPosition(
             player,
             offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1),
@@ -79,8 +77,9 @@ class GameBuilder(val worldSize: Size3D) {
     }
 
     companion object {
-        fun create() = GameBuilder(
-            worldSize = WORLD_SIZE
+        fun create(player: GameEntity<Player>) = GameBuilder(
+            worldSize = WORLD_SIZE,
+            player = player
         ).buildGame()
     }
 }

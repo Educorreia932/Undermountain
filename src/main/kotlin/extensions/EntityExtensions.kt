@@ -2,9 +2,7 @@ package extensions
 
 import attributes.EntityActions
 import attributes.flags.BlockOccupier
-import entities.Combatant
 import entities.Player
-import entities.combatStats
 import game.GameContext
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.Pass
@@ -46,4 +44,3 @@ val AnyGameEntity.occupiesBlock: Boolean
 val AnyGameEntity.isPlayer: Boolean
     get() = this.type == Player
 
-fun GameEntity<Combatant>.hasNoHealthLeft(): Boolean = combatStats.currentHp <= 0

@@ -1,7 +1,9 @@
 package builders
 
 import attributes.*
+import attributes.classes.PlayerClass
 import attributes.flags.BlockOccupier
+import attributes.races.PlayerRace
 import entities.Goblin
 import entities.Player
 import entities.Scimitar
@@ -13,7 +15,6 @@ import game.GameTileRepository.SWORD
 import game.GameTileRepository.WALL
 import messages.Attack
 import org.hexworks.amethyst.api.builder.EntityBuilder
-import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.amethyst.api.newEntityOfType
 import org.hexworks.zircon.api.GraphicalTilesetResources
@@ -27,24 +28,24 @@ object EntityFactory {
         init: EntityBuilder<T, GameContext>.() -> Unit
     ) = newEntityOfType(type, init)
 
-    fun newPlayer(): Entity<Player, GameContext> {
-        return newGameEntityOfType(Player) {
-            attributes(
-                EntityPosition(),
-                EntityTile(PLAYER),
-                EntityActions(Attack::class),
-                CreatureAttributes(),
-                Stats.create(
-                    maxHp = 10,
-                    ac = 10
-                ),
-                Experience(),
-                Inventory(),
-                Equipment(initialWeapon = newScimitar()),
-            )
-            facets(Movable, CameraMover, InventoryInspector, ItemPicker)
-            behaviors(InputReceiver)
-        }
+    fun newPlayer(
+        playerClass: PlayerClass,
+        playerRace: PlayerRace,
+        creatureAttributes: CreatureAttributes
+    ) = newGameEntityOfType(Player) {
+        attributes(
+            EntityPosition(),
+            EntityTile(PLAYER),
+            EntityActions(Attack::class),
+            Experience(),
+            Inventory(),
+            Equipment(initialWeapon = newScimitar()),
+            playerClass,
+            playerRace,
+            creatureAttributes
+        )
+        facets(Movable, CameraMover, InventoryInspector, ItemPicker)
+        behaviors(InputReceiver)
     }
 
     fun newGoblin() = newGameEntityOfType(Goblin) {
@@ -78,7 +79,7 @@ object EntityFactory {
             )
         )
     }
-    
+
     fun newWall() = newGameEntityOfType(Wall) {
         attributes(
             EntityPosition(),

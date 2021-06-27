@@ -4,7 +4,7 @@ import game.GameConfig.WINDOW_WIDTH
 import org.hexworks.zircon.api.CP437TilesetResources
 import org.hexworks.zircon.api.SwingApplications.startTileGrid
 import org.hexworks.zircon.api.application.AppConfig
-import views.PlayView
+import views.CharacterCreationView
 
 fun main() {
     val tileGrid = startTileGrid(
@@ -14,8 +14,7 @@ fun main() {
             .build()
     )
 
-    val view = PlayView(tileGrid)
-    // val view = CharacterCreationView(tileGrid)
+    val view = CharacterCreationView(tileGrid)
 
     view.dock()
 }

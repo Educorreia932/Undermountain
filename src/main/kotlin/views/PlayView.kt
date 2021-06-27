@@ -2,7 +2,6 @@ package views
 
 import events.GameLogEvent
 import game.Game
-import game.GameBuilder
 import game.GameConfig
 import game.GameConfig.LOG_AREA_HEIGHT
 import game.GameConfig.SIDEBAR_WIDTH
@@ -27,8 +26,8 @@ import views.fragment.PlayerInformationFragment
 
 class PlayView(
     grid: TileGrid,
-    game: Game = GameBuilder.create(),
-    theme: ColorTheme = GameConfig.THEME
+    game: Game,
+    theme: ColorTheme = GameConfig.THEME,
 ) : BaseView(grid, theme) {
     init {
         val sidebar = Components.panel()
