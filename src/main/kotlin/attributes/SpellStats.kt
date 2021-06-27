@@ -1,30 +1,13 @@
 package attributes
 
+import enums.MagicSchool
+import enums.SpellComponent
 import org.hexworks.amethyst.api.base.BaseAttribute
-
-enum class SpellComponent {
-    V,
-    S,
-    M
-}
-
-enum class MagicSchool {
-    Abjuration,
-    Conjuration,
-    Divination,
-    Enchantment,
-    Evocation,
-    Illusion,
-    Necromancy,
-    Transmutation
-}
 
 class SpellStats(
     val level: Int,
     val school: MagicSchool,
-    val component: List<SpellComponent>
+    val component: Set<SpellComponent>
     // val range
     // val duration
-) : BaseAttribute() {
-    
-}
+) : BaseAttribute()

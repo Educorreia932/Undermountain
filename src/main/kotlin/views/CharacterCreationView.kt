@@ -1,5 +1,7 @@
 package views
 
+import attributes.classes.Fighter
+import attributes.races.Human
 import builders.CharacterBuilder
 import game.GameBuilder
 import org.hexworks.zircon.api.ColorThemes
@@ -39,9 +41,9 @@ class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
             .build()
 
         val player = CharacterBuilder()
-            .withRace()
-            .withClass()
-            .withAttributes()
+            .withRace(Human())
+            .withClass(Fighter())
+            .withAttributes(10, 10, 10, 10, 10, 10)
             .build()
         
         readyButton.onActivated {

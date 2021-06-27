@@ -1,4 +1,4 @@
-package attributes
+package enums
 
 enum class DamageType {
     Acid,

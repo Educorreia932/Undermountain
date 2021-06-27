@@ -1,36 +1,27 @@
 package attributes
 
+import enums.AbilityType
 import org.hexworks.cobalt.core.api.UUID
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.zircon.api.Components
 
-enum class AttributeType {
-    STR,
-    DEX,
-    CON,
-    WIS,
-    INT,
-    CHA
-}
-
-class CreatureAttributes(
-    var strength: CreatureAttribute = CreatureAttribute(10),
-    var dexterity: CreatureAttribute = CreatureAttribute(10),
-    var constitution: CreatureAttribute = CreatureAttribute(10),
-    var wisdom: CreatureAttribute = CreatureAttribute(10),
-    var intelligence: CreatureAttribute = CreatureAttribute(10),
-    var charisma: CreatureAttribute = CreatureAttribute(10)
+class Abilities(
+    var strength: Ability = Ability(10),
+    var dexterity: Ability = Ability(10),
+    var constitution: Ability = Ability(10),
+    var wisdom: Ability = Ability(10),
+    var intelligence: Ability = Ability(10),
+    var charisma: Ability = Ability(10)
 ) : DisplayableAttribute {
-
     override val id = UUID.randomUUID()
 
-    val attributes = mapOf(
-        AttributeType.STR to strength,
-        AttributeType.DEX to dexterity,
-        AttributeType.CON to constitution,
-        AttributeType.WIS to wisdom,
-        AttributeType.INT to intelligence,
-        AttributeType.CHA to charisma
+    private val abilities = mapOf(
+        AbilityType.STR to strength,
+        AbilityType.DEX to dexterity,
+        AbilityType.CON to constitution,
+        AbilityType.WIS to wisdom,
+        AbilityType.INT to intelligence,
+        AbilityType.CHA to charisma
     )
 
     override fun toComponent(width: Int) = Components.vbox()
@@ -44,7 +35,7 @@ class CreatureAttributes(
 
             var index = 0
 
-            for ((key, value) in attributes) {
+            for ((key, value) in abilities) {
                 val label = Components.label()
                     .withSize(width, 1)
                     .build()
@@ -60,6 +51,12 @@ class CreatureAttributes(
                 index++
             }
         }
+    
+    fun applyBonuses(bonuses: Set<AbilityBonus>) {
+        bonuses.forEach { bonus ->
+            abilities[bonus.abilityType]?.applyBonus(bonus)
+        }
+    }
 
     companion object {
         fun create(
@@ -69,13 +66,13 @@ class CreatureAttributes(
             wisdom: Int,
             intelligence: Int,
             charisma: Int
-        ) = CreatureAttributes(
-            CreatureAttribute(strength),
-            CreatureAttribute(dexterity),
-            CreatureAttribute(constitution),
-            CreatureAttribute(wisdom),
-            CreatureAttribute(intelligence),
-            CreatureAttribute(charisma),
+        ) = Abilities(
+            Ability(strength),
+            Ability(dexterity),
+            Ability(constitution),
+            Ability(wisdom),
+            Ability(intelligence),
+            Ability(charisma),
         )
     }
 }

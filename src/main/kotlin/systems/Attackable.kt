@@ -17,8 +17,7 @@ object Attackable : BaseFacet<GameContext, Attack>(Attack::class) {
         val (context, attacker, target) = message
 
         return if (attacker.isPlayer || target.isPlayer) {
-            val attackRoll = DiceRoll(1, 20).roll() + 2 + attacker.creatureAttributes.strength.getModifier()
-            println(attackRoll)
+            val attackRoll = DiceRoll(1, 20).roll() + 2 + attacker.abilities.strength.getModifier()
 
             if (attackRoll < target.combatStats.ac)
                 logGameEvent("The $attacker misses!", Attackable)

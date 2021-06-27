@@ -8,6 +8,7 @@ import entities.Goblin
 import entities.Player
 import entities.Scimitar
 import entities.Wall
+import enums.DamageType
 import game.GameContext
 import game.GameTileRepository.GOBLIN
 import game.GameTileRepository.PLAYER
@@ -31,7 +32,7 @@ object EntityFactory {
     fun newPlayer(
         playerClass: PlayerClass,
         playerRace: PlayerRace,
-        creatureAttributes: CreatureAttributes
+        abilities: Abilities
     ) = newGameEntityOfType(Player) {
         attributes(
             EntityPosition(),
@@ -42,7 +43,7 @@ object EntityFactory {
             Equipment(initialWeapon = newScimitar()),
             playerClass,
             playerRace,
-            creatureAttributes
+            abilities
         )
         facets(Movable, CameraMover, InventoryInspector, ItemPicker)
         behaviors(InputReceiver)
@@ -53,7 +54,7 @@ object EntityFactory {
             EntityPosition(),
             EntityTile(GOBLIN),
             BlockOccupier,
-            CreatureAttributes.create(8, 14, 10, 10, 8, 8),
+            Abilities.create(8, 14, 10, 10, 8, 8),
             Stats.create(
                 maxHp = 7,
                 ac = 15
