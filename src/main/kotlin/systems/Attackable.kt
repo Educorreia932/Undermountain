@@ -27,7 +27,7 @@ object Attackable : BaseFacet<GameContext, Attack>(Attack::class) {
 
                 target.combatStats.currentHp -= damage
 
-                logGameEvent("The $attacker hits the $target for $damage!", Attackable)
+                logGameEvent("The $attacker hits the $target for $damage damage!", Attackable)
 
                 if (target.hasNoHealthLeft()) {
                     target.sendMessage(

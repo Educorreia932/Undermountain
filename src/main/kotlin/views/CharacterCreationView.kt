@@ -15,7 +15,7 @@ import org.hexworks.zircon.api.view.base.BaseView
 
 class CharacterCreationView(tileGrid: TileGrid) : BaseView(tileGrid) {
     init {
-        screen.theme = ColorThemes.monokaiBlue()
+        screen.theme = ColorThemes.monokaiOrange()
 
         val panel = Components.panel()
             .withDecorations(

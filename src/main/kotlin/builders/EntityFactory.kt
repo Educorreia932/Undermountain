@@ -4,21 +4,23 @@ import attributes.*
 import attributes.classes.PlayerClass
 import attributes.flags.BlockOccupier
 import attributes.races.PlayerRace
-import entities.Goblin
-import entities.Player
-import entities.Scimitar
-import entities.Wall
+import entities.*
 import enums.DamageType
+import enums.MagicSchool
+import enums.SpellComponent
 import game.GameContext
 import game.GameTileRepository.GOBLIN
 import game.GameTileRepository.PLAYER
 import game.GameTileRepository.SWORD
 import game.GameTileRepository.WALL
 import messages.Attack
+import org.hexworks.amethyst.api.base.BaseEntity
 import org.hexworks.amethyst.api.builder.EntityBuilder
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.amethyst.api.newEntityOfType
+import org.hexworks.amethyst.internal.entity.DefaultEntity
 import org.hexworks.zircon.api.GraphicalTilesetResources
+import org.hexworks.zircon.api.data.CharacterTile
 import org.hexworks.zircon.api.data.Tile
 import systems.*
 import utils.DiceRoll
@@ -33,21 +35,25 @@ object EntityFactory {
         playerClass: PlayerClass,
         playerRace: PlayerRace,
         abilities: Abilities
-    ) = newGameEntityOfType(Player) {
-        attributes(
-            EntityPosition(),
-            EntityTile(PLAYER),
-            EntityActions(Attack::class),
-            Experience(),
-            Inventory(),
-            Equipment(initialWeapon = newScimitar()),
-            playerClass,
-            playerRace,
-            abilities
+    ): BaseEntity<Player, GameContext> {
+        return DefaultEntity(
+            type = Player,
+            attributes = setOf(
+                EntityPosition(),
+                EntityTile(PLAYER),
+                EntityActions(Attack::class),
+                Experience(),
+                Inventory(),
+                Equipment(initialWeapon = newScimitar()),
+                playerClass,
+                playerRace,
+                abilities
+            ),
+            facets = setOf(Movable, CameraMover, InventoryInspector, ItemPicker),
+            behaviors = setOf(InputReceiver)
         )
-        facets(Movable, CameraMover, InventoryInspector, ItemPicker)
-        behaviors(InputReceiver)
     }
+
 
     fun newGoblin() = newGameEntityOfType(Goblin) {
         attributes(
@@ -86,6 +92,16 @@ object EntityFactory {
             EntityPosition(),
             BlockOccupier,
             EntityTile(WALL)
+        )
+    }
+
+    fun newFirebolt() = newGameEntityOfType(Firebolt) {
+        attributes(
+            SpellStats(
+                level = 0,
+                school = MagicSchool.Evocation,
+                components = setOf(SpellComponent.V, SpellComponent.S)
+            )
         )
     }
 }
