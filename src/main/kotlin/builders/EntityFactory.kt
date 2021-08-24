@@ -8,19 +8,18 @@ import entities.*
 import enums.DamageType
 import enums.MagicSchool
 import enums.SpellComponent
+import extensions.whenTypeIs
+import functions.logGameEvent
 import game.GameContext
 import game.GameTileRepository.GOBLIN
 import game.GameTileRepository.PLAYER
 import game.GameTileRepository.SWORD
 import game.GameTileRepository.WALL
 import messages.Attack
-import org.hexworks.amethyst.api.base.BaseEntity
 import org.hexworks.amethyst.api.builder.EntityBuilder
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.amethyst.api.newEntityOfType
-import org.hexworks.amethyst.internal.entity.DefaultEntity
 import org.hexworks.zircon.api.GraphicalTilesetResources
-import org.hexworks.zircon.api.data.CharacterTile
 import org.hexworks.zircon.api.data.Tile
 import systems.*
 import utils.DiceRoll
@@ -35,25 +34,21 @@ object EntityFactory {
         playerClass: PlayerClass,
         playerRace: PlayerRace,
         abilities: Abilities
-    ): BaseEntity<Player, GameContext> {
-        return DefaultEntity(
-            type = Player,
-            attributes = setOf(
-                EntityPosition(),
-                EntityTile(PLAYER),
-                EntityActions(Attack::class),
-                Experience(),
-                Inventory(),
-                Equipment(initialWeapon = newScimitar()),
-                playerClass,
-                playerRace,
-                abilities
-            ),
-            facets = setOf(Movable, CameraMover, InventoryInspector, ItemPicker),
-            behaviors = setOf(InputReceiver)
+    ) = newGameEntityOfType(Player) {
+        attributes(
+            EntityPosition(),
+            EntityTile(PLAYER),
+            EntityActions(Attack::class),
+            Experience(),
+            Inventory(),
+            Equipment(initialWeapon = newScimitar()),
+            playerClass,
+            playerRace,
+            abilities
         )
-    }
-
+        facets(Movable, CameraMover, InventoryInspector, ItemPicker, Spellcastable)
+        behaviors(InputReceiver)
+    }.asMutableEntity()
 
     fun newGoblin() = newGameEntityOfType(Goblin) {
         attributes(
@@ -67,7 +62,7 @@ object EntityFactory {
             ),
             Equipment(initialWeapon = newScimitar())
         )
-        facets(Attackable, Destructible)
+        facets(Attackable, Destructible, Spellcastable)
     }
 
     fun newScimitar() = newGameEntityOfType(Scimitar) {
@@ -100,7 +95,16 @@ object EntityFactory {
             SpellStats(
                 level = 0,
                 school = MagicSchool.Evocation,
-                components = setOf(SpellComponent.V, SpellComponent.S)
+                components = setOf(SpellComponent.V, SpellComponent.S),
+                range = 1,
+                duration = 0,
+                effects = listOf { context, caster, target ->
+                    val finalDamage = DiceRoll(1, 10).roll()
+
+                    target.whenTypeIs<Combatant> {
+                        logGameEvent("The firebolt burns the $it for $finalDamage damage!", caster)
+                    }
+                }
             )
         )
     }

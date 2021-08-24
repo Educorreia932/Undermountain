@@ -30,7 +30,7 @@ class GameBuilder(val worldSize: Size3D, val player: GameEntity<Player>) {
         prepareWorld()
 
         val player = addPlayer(player)
-        addMonster(player.position)
+        val monster = addMonster(player.position)
         addSword()
 
         return Game.create(
