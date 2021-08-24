@@ -2,7 +2,6 @@ package builders
 
 import extensions.sameLevelNeighborsShuffled
 import game.GameBlock
-import game.GameBlockFactory
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 import world.World

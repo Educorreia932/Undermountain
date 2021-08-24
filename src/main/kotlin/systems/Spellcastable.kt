@@ -9,7 +9,6 @@ import org.hexworks.amethyst.api.base.BaseFacet
 
 object Spellcastable: BaseFacet<GameContext, CastSpell>(CastSpell::class) {
     override suspend fun receive(message: CastSpell): Response {
-        println("Received spell")
         val (context, source, target, spell) = message
         
         spell.effects.forEach {

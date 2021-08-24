@@ -3,7 +3,7 @@ package views
 import attributes.classes.Fighter
 import attributes.races.Human
 import builders.CharacterBuilder
-import game.GameBuilder
+import builders.GameBuilder
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components

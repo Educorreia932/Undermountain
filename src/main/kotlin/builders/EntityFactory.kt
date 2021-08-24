@@ -62,7 +62,7 @@ object EntityFactory {
             ),
             Equipment(initialWeapon = newScimitar())
         )
-        facets(Attackable, Destructible, Spellcastable)
+        facets(Attackable, Destructible, Spellcastable, Movable)
     }
 
     fun newScimitar() = newGameEntityOfType(Scimitar) {

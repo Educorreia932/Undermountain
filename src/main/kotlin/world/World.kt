@@ -17,6 +17,7 @@ import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.game.GameArea
 import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.UIEvent
+import kotlin.reflect.full.isSuperclassOf
 
 class World(
     startingBlocks: Map<Position3D, GameBlock>,
@@ -46,7 +47,7 @@ class World(
     fun addEntity(entity: Entity<EntityType, GameContext>, position: Position3D) {
         entity.position = position
         engine.addEntity(entity)
-        
+
         fetchBlockAt(position).map {
             it.addEntity(entity)
         }
@@ -126,8 +127,23 @@ class World(
         fetchBlockAt(entity.position).map {
             it.removeEntity(entity)
         }
-        
+
         engine.removeEntity(entity)
         entity.position = Position3D.unknown()
+    }
+
+    inline fun <reified T : EntityType> fetchEntitiesOfType(): MutableList<GameEntity<EntityType>> {
+        val entities: MutableList<GameEntity<EntityType>> = mutableListOf()
+
+        for (block: Map.Entry<Position3D, GameBlock> in blocks.entries) {
+            if (block.value.isOccupied) {
+                val entity = block.value.occupier.get()
+
+                if (T::class.isSuperclassOf(entity.type::class))
+                    entities.add(entity)
+            }
+        }
+
+        return entities
     }
 }

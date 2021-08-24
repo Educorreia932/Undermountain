@@ -1,6 +1,7 @@
-package game
+package builders
 
-import builders.EntityFactory
+import game.GameBlock
+import game.GameTileRepository
 
 object GameBlockFactory {
     fun floor() = GameBlock(GameTileRepository.FLOOR)

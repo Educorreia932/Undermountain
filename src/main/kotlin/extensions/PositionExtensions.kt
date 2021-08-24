@@ -23,8 +23,13 @@ var AnyGameEntity.position
         }
     }
 
-val AnyGameEntity.tile: Tile
-    get() = this.tryToFindAttribute(EntityTile::class).tile
+var AnyGameEntity.tile: Tile
+    get() = tryToFindAttribute(EntityTile::class).tile
+    set(value) {
+        findAttribute(EntityTile::class).map {
+            it.tile = value
+        }
+    }
 
 fun <T : Attribute> AnyGameEntity.tryToFindAttribute(klass: KClass<T>): T = findAttribute(klass).orElseThrow {
     NoSuchElementException("Entity '$this' has no property with type '${klass.simpleName}'.")

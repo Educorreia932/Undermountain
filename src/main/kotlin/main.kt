@@ -1,7 +1,7 @@
 import attributes.classes.Fighter
 import attributes.races.Human
 import builders.CharacterBuilder
-import game.GameBuilder
+import builders.GameBuilder
 import game.GameConfig.WINDOW_HEIGHT
 import game.GameConfig.WINDOW_WIDTH
 import org.hexworks.zircon.api.CP437TilesetResources

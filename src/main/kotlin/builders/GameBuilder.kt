@@ -1,12 +1,12 @@
-package game
+package builders
 
-import builders.EntityFactory
-import builders.WorldBuilder
 import entities.Goblin
 import entities.Player
 import extensions.GameEntity
 import extensions.GameItem
 import extensions.position
+import game.Game
+import game.GameConfig
 import game.GameConfig.LOG_AREA_HEIGHT
 import game.GameConfig.SIDEBAR_WIDTH
 import game.GameConfig.WINDOW_HEIGHT
@@ -30,7 +30,7 @@ class GameBuilder(val worldSize: Size3D, val player: GameEntity<Player>) {
         prepareWorld()
 
         val player = addPlayer(player)
-        val monster = addMonster(player.position)
+        addMonster(player.position)
         addSword()
 
         return Game.create(
