@@ -32,6 +32,8 @@ class GameBuilder(val worldSize: Size3D, val player: GameEntity<Player>) {
         val player = addPlayer(player)
         addMonster(player.position)
         addSword()
+        
+        world.addEntity(EntityFactory.newFogOfWar())
 
         return Game.create(
             player = player,

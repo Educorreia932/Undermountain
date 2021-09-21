@@ -1,6 +1,7 @@
 package extensions
 
 import attributes.EntityActions
+import attributes.VisionBlocker
 import attributes.flags.BlockOccupier
 import entities.Player
 import game.GameContext
@@ -43,4 +44,7 @@ val AnyGameEntity.occupiesBlock: Boolean
 
 val AnyGameEntity.isPlayer: Boolean
     get() = this.type == Player
+
+val AnyGameEntity.blocksVision: Boolean
+    get() = this.findAttribute(VisionBlocker::class).isPresent
 

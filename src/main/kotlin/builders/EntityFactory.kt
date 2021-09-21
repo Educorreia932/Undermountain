@@ -1,10 +1,12 @@
 package builders
 
+import attributes.VisionBlocker
 import attributes.*
 import attributes.classes.PlayerClass
 import attributes.flags.BlockOccupier
 import attributes.races.PlayerRace
 import entities.*
+import entities.FogOfWar
 import enums.DamageType
 import enums.MagicSchool
 import enums.SpellComponent
@@ -44,7 +46,8 @@ object EntityFactory {
             Equipment(initialWeapon = newScimitar()),
             playerClass,
             playerRace,
-            abilities
+            abilities,
+            Vision(9)
         )
         facets(Movable, CameraMover, InventoryInspector, ItemPicker, Spellcastable)
         behaviors(InputReceiver)
@@ -86,7 +89,8 @@ object EntityFactory {
         attributes(
             EntityPosition(),
             BlockOccupier,
-            EntityTile(WALL)
+            EntityTile(WALL),
+            VisionBlocker
         )
     }
 
@@ -98,7 +102,7 @@ object EntityFactory {
                 components = setOf(SpellComponent.V, SpellComponent.S),
                 range = 1,
                 duration = 0,
-                effects = listOf { context, caster, target ->
+                effects = listOf { _, caster, target ->
                     val finalDamage = DiceRoll(1, 10).roll()
 
                     target.whenTypeIs<Combatant> {
@@ -107,5 +111,9 @@ object EntityFactory {
                 }
             )
         )
+    }
+    
+    fun newFogOfWar() = newGameEntityOfType(FogOfWar) {
+        behaviors(systems.FogOfWar)
     }
 }

@@ -11,4 +11,6 @@ object GameColors {
 
     val ACCENT_COLOR = TileColor.fromString("#FFCD22")
     val AMBER = TileColor.fromString("#FFBF00")
+    
+    val UNREVEALED_COLOR = TileColor.fromString("#090909")
 }

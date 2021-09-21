@@ -42,5 +42,10 @@ object GameTileRepository {
         .withForegroundColor(ANSITileColor.BRIGHT_WHITE)
         .withBackgroundColor(FLOOR_BACKGROUND)
         .buildCharacterTile()
+    
+    val UNREVEALED = Tile.newBuilder()
+        .withCharacter(' ')
+        .withBackgroundColor(GameColors.UNREVEALED_COLOR)
+        .buildCharacterTile()
 }
 

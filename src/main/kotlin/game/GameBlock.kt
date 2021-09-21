@@ -20,6 +20,11 @@ class GameBlock(
     emptyTile = Tile.empty(),
     tiles = persistentMapOf(BlockTileType.CONTENT to defaultTile)
 ) {
+    init {
+        top = GameTileRepository.UNREVEALED
+        updateContent()
+    }
+    
     val isFloor: Boolean
         get() = defaultTile == FLOOR
 
