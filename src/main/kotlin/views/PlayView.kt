@@ -18,6 +18,7 @@ import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.game.ProjectionMode
 import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.uievent.KeyboardEventType
+import org.hexworks.zircon.api.uievent.MouseEventType
 import org.hexworks.zircon.api.uievent.Processed
 import org.hexworks.zircon.api.view.base.BaseView
 import org.hexworks.zircon.internal.Zircon
@@ -63,6 +64,11 @@ class PlayView(
         screen.addComponents(sidebar, logArea, gameComponent)
 
         screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { event, _ ->
+            game.world.update(screen, event, game)
+            Processed
+        }
+        
+        screen.handleMouseEvents(MouseEventType.MOUSE_CLICKED) { event, _ ->
             game.world.update(screen, event, game)
             Processed
         }
