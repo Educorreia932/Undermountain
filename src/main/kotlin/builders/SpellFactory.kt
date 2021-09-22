@@ -1,0 +1,4 @@
+package builders
+
+class SpellFactory {
+}

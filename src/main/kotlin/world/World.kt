@@ -58,6 +58,10 @@ class World(
         }
     }
 
+    fun addEntity(entity: GameEntity<EntityType>) {
+        engine.addEntity(entity)
+    }
+
     fun addAtEmptyPosition(
         entity: GameEntity<EntityType>,
         offset: Position3D = Position3D.create(0, 0, 0),
@@ -183,9 +187,5 @@ class World(
                     result
                 }
         }.orElse(listOf())
-    }
-    
-    fun addEntity(entity: GameEntity<EntityType>) {
-        engine.addEntity(entity)
     }
 }

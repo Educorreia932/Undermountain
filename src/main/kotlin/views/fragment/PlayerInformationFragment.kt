@@ -2,6 +2,7 @@ package views.fragment
 
 import attributes.DisplayableAttribute
 import entities.Player
+import entities.equippedWeapon
 import extensions.GameEntity
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.Fragment
@@ -21,5 +22,8 @@ class PlayerInformationFragment(
                 .forEach {
                     addComponent(it.toComponent(width))
                 }
+            
+            addComponent(Components.header().withText("Equipped weapon"))
+            addComponent(Components.textArea().withText(player.equippedWeapon.toString()))
         }
 }

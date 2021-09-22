@@ -4,10 +4,12 @@ import builders.EntityFactory.newFirebolt
 import entities.Player
 import extensions.GameEntity
 import extensions.position
+import game.Game
 import game.GameConfig
 import game.GameContext
 import messages.CastSpell
 import messages.InspectInventory
+import messages.InspectSpells
 import messages.MoveTo
 import messages.PickItemUp
 import org.hexworks.amethyst.api.base.BaseBehavior
@@ -34,7 +36,7 @@ object InputReceiver : BaseBehavior<GameContext>() {
                     uiEvent.position.x - GameConfig.SIDEBAR_WIDTH,
                     uiEvent.position.y,
                     currentPos.z
-                )
+                ) // TODO: Won't work if camera moves
                 val selectedTarget = world.fetchBlockAt(position).get().occupier.get()
 
                 player.selectTarget(context, selectedTarget)
@@ -57,7 +59,7 @@ object InputReceiver : BaseBehavior<GameContext>() {
                 KeyCode.RIGHT -> player.moveTo(currentPos.withRelativeX(1), context)
                 KeyCode.KEY_G -> player.pickItemUp(currentPos, context)
                 KeyCode.KEY_I -> player.inspectInventory(currentPos, context)
-                KeyCode.KEY_Z -> selectingTarget = true
+                KeyCode.KEY_Z -> player.inspectSpells(currentPos, context)
 
                 else -> {
                     logger.debug("UI Event ($uiEvent) does not have a corresponding command, it is ignored.")
@@ -78,6 +80,10 @@ object InputReceiver : BaseBehavior<GameContext>() {
 
     private suspend fun GameEntity<Player>.inspectInventory(position: Position3D, context: GameContext) {
         receiveMessage(InspectInventory(context, this, position))
+    }
+
+    private suspend fun GameEntity<Player>.inspectSpells(position: Position3D, context: GameContext) {
+        receiveMessage(InspectSpells(context, this, position))
     }
 
     private suspend fun GameEntity<Player>.selectTarget(context: GameContext, target: Entity<EntityType, GameContext>) {

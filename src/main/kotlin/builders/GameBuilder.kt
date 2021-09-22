@@ -30,8 +30,18 @@ class GameBuilder(val worldSize: Size3D, val player: GameEntity<Player>) {
         prepareWorld()
 
         val player = addPlayer(player)
-        addMonster(player.position)
-        addSword()
+        
+        // Add goblin
+        world.addEntity(
+            EntityFactory.newGoblin(),
+            player.position.withRelativeY(-1)
+        )
+
+        // Add scimitar
+        world.addEntity(
+            EntityFactory.newScimitar(),
+            player.position.withRelativeY(1)
+        )
         
         world.addEntity(EntityFactory.newFogOfWar())
 
@@ -53,17 +63,6 @@ class GameBuilder(val worldSize: Size3D, val player: GameEntity<Player>) {
         )
 
         return player
-    }
-
-    private fun addMonster(playerPosition: Position3D): GameEntity<Goblin> {
-        val monster = EntityFactory.newGoblin()
-
-        world.addEntity(
-            monster,
-            playerPosition.withRelativeY(-1)
-        )
-
-        return monster
     }
 
     private fun addSword(): GameItem {

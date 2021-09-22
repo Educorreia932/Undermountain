@@ -42,7 +42,7 @@ class InventoryFragment(
             equipButton.onActivated {
                 onEquip(item).map { oldItem ->        
 //                    list.removeComponent(this.root)
-                    addRow(width, oldItem, list)
+                    // addRow(width, oldItem, list)
                 }
                 
                 Processed

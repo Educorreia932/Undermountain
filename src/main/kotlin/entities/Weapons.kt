@@ -17,3 +17,7 @@ object Sword : BaseEntityType(
 object Scimitar : BaseEntityType(
     name = "Scimitar" 
 ), Weapon
+
+object Shortsword : BaseEntityType(
+    name = "Shortsword"
+), Weapon

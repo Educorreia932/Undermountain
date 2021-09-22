@@ -1,5 +1,6 @@
 package attributes
 
+import builders.EntityFactory.newShortsword
 import entities.Weapon
 import extensions.GameCombatItem
 import extensions.GameEntity
@@ -8,7 +9,7 @@ import org.hexworks.amethyst.api.base.BaseAttribute
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.cobalt.databinding.api.property.Property
 
-class Equipment(initialWeapon: GameEntity<Weapon>): BaseAttribute() {
+class Equipment(initialWeapon: GameEntity<Weapon> = newShortsword()): BaseAttribute() {
     private val weaponProperty: Property<GameEntity<Weapon>> = createPropertyFrom(initialWeapon)
 
     val weapon: GameEntity<Weapon> by weaponProperty.asDelegate()
