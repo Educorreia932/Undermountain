@@ -8,6 +8,10 @@ class SpellRowFragment(
     width: Int,
     spell: GameSpell
 ) : Fragment {
+    val castButton = Components.button()
+        .withText("Cast")
+        .build()
+
     override val root = Components.hbox()
         .withSpacing(1)
         .withSize(width, 1)
@@ -18,5 +22,6 @@ class SpellRowFragment(
                     .withSize(InventoryFragment.NAME_COLUMN_WIDTH, 1)
                     .withText(spell.name)
             )
+            addComponent(castButton)
         }
 }

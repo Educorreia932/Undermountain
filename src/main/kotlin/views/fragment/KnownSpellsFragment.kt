@@ -9,8 +9,11 @@ import org.hexworks.zircon.api.uievent.Processed
 
 class KnownSpellsFragment(
     knownSpells: KnownSpells,
-    width: Int
+    width: Int,
+    private val onCast: (GameSpell) -> GameSpell
 ) : Fragment {
+    var rows: MutableList<SpellRowFragment> = mutableListOf()
+    
     override val root = Components.vbox()
         .withSize(width, knownSpells.size + 1)
         .build()
@@ -24,13 +27,21 @@ class KnownSpellsFragment(
                 }
             )
 
-            knownSpells.currentSpells.forEach() { item ->
+            knownSpells.currentSpells.forEach { item ->
                 addRow(width, item, this)
             }
         }
 
     private fun addRow(width: Int, spell: GameSpell, list: VBox) {
-        list.addFragment(SpellRowFragment(width, spell))
+        val fragment = SpellRowFragment(width, spell).apply {
+            castButton.onActivated {
+                onCast(spell)
+                Processed
+            }
+        }
+        
+        list.addFragment(fragment)
+        rows.add(fragment)
     }
 
     companion object {

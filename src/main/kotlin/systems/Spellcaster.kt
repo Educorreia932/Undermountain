@@ -1,8 +1,11 @@
 package systems
 
 import attributes.KnownSpells
+import enums.GameState
 import game.GameConfig
 import game.GameContext
+import game.MetaContext
+import messages.CastSpell
 import messages.InspectSpells
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.Response
@@ -32,6 +35,11 @@ object Spellcaster : BaseFacet<GameContext, InspectSpells>(InspectSpells::class)
         val fragment = KnownSpellsFragment(
             spellcaster.findAttribute(KnownSpells::class).get(),
             DIALOG_SIZE.width - 3,
+            onCast = { spell ->
+                MetaContext.gameState = GameState.TARGETING
+                MetaContext.suspendedAction = CastSpell(context, spellcaster, spellcaster, spell)
+                spell
+            }
         )
         
         panel.addFragment(fragment)
@@ -41,6 +49,17 @@ object Spellcaster : BaseFacet<GameContext, InspectSpells>(InspectSpells::class)
             .withComponent(panel)
             .withCenteredDialog(true)
             .build()
+        
+        fragment.rows.forEach {
+            apply { 
+                it.castButton.apply { 
+                    onActivated { 
+                        modal.close(EmptyModalResult) 
+                        Processed
+                    }
+                }
+            }
+        }
 
         panel.addComponent(Components.button()
             .withText("Close")

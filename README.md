@@ -6,7 +6,7 @@ A roguelike game in development, using [Zircon](https://github.com/Hexworks/zirc
 
 ## Roadmap
 
-- Creatures attributes
+- Creature attributes
 - Menus
     - Inventory   
     - Character 

@@ -2,12 +2,15 @@ package systems
 
 import builders.EntityFactory.newFirebolt
 import entities.Player
+import enums.GameState
 import extensions.GameEntity
 import extensions.position
 import game.Game
 import game.GameConfig
 import game.GameContext
+import game.MetaContext
 import messages.CastSpell
+import messages.EntityAction
 import messages.InspectInventory
 import messages.InspectSpells
 import messages.MoveTo
@@ -23,14 +26,31 @@ import org.hexworks.zircon.api.uievent.MouseEvent
 import org.hexworks.zircon.api.uievent.MouseEventType
 
 object InputReceiver : BaseBehavior<GameContext>() {
-    private var selectingTarget = false // TODO: Use State pattern, instead of just a boolean
     private val logger = LoggerFactory.getLogger(this::class)
 
     override suspend fun update(entity: GameEntity<EntityType>, context: GameContext): Boolean {
         val (world, _, uiEvent, player) = context
         val currentPos = player.position
 
-        if (selectingTarget) {
+        if (MetaContext.gameState == GameState.PLAYER_TURN) {
+            if (uiEvent is KeyboardEvent) {
+                when (uiEvent.code) {
+                    KeyCode.UP -> player.moveTo(currentPos.withRelativeY(-1), context)
+                    KeyCode.LEFT -> player.moveTo(currentPos.withRelativeX(-1), context)
+                    KeyCode.DOWN -> player.moveTo(currentPos.withRelativeY(1), context)
+                    KeyCode.RIGHT -> player.moveTo(currentPos.withRelativeX(1), context)
+                    KeyCode.KEY_G -> player.pickItemUp(currentPos, context)
+                    KeyCode.KEY_I -> player.inspectInventory(currentPos, context)
+                    KeyCode.KEY_Z -> player.inspectSpells(currentPos, context)
+
+                    else -> {
+                        logger.debug("UI Event ($uiEvent) does not have a corresponding command, it is ignored.")
+                    }
+                }
+            }
+        }
+        
+        else if (MetaContext.gameState == GameState.TARGETING) {
             if (uiEvent is MouseEvent && uiEvent.type == MouseEventType.MOUSE_CLICKED) {
                 val position = Position3D.create(
                     uiEvent.position.x - GameConfig.SIDEBAR_WIDTH,
@@ -39,30 +59,20 @@ object InputReceiver : BaseBehavior<GameContext>() {
                 ) // TODO: Won't work if camera moves
                 val selectedTarget = world.fetchBlockAt(position).get().occupier.get()
 
-                player.selectTarget(context, selectedTarget)
-            }
-            
-            else if (uiEvent is KeyboardEvent) {
-                when (uiEvent.code) {
-                    KeyCode.ESCAPE -> selectingTarget = false
-
-                    else -> logger.debug("UI Event ($uiEvent) does not have a corresponding command, it is ignored.")
+                MetaContext.suspendedAction?.let { 
+                    it as CastSpell
+                    it.target = selectedTarget
+                    player.receiveMessage(it) 
                 }
             }
-        }
-        
-        else if (uiEvent is KeyboardEvent) {
-            when (uiEvent.code) {
-                KeyCode.UP -> player.moveTo(currentPos.withRelativeY(-1), context)
-                KeyCode.LEFT -> player.moveTo(currentPos.withRelativeX(-1), context)
-                KeyCode.DOWN -> player.moveTo(currentPos.withRelativeY(1), context)
-                KeyCode.RIGHT -> player.moveTo(currentPos.withRelativeX(1), context)
-                KeyCode.KEY_G -> player.pickItemUp(currentPos, context)
-                KeyCode.KEY_I -> player.inspectInventory(currentPos, context)
-                KeyCode.KEY_Z -> player.inspectSpells(currentPos, context)
+            else if (uiEvent is KeyboardEvent) {
+                when (uiEvent.code) {
+                    KeyCode.ESCAPE -> {
+                        MetaContext.gameState = GameState.PLAYER_TURN
+                        MetaContext.suspendedAction = null
+                    }
 
-                else -> {
-                    logger.debug("UI Event ($uiEvent) does not have a corresponding command, it is ignored.")
+                    else -> logger.debug("UI Event ($uiEvent) does not have a corresponding command, it is ignored.")
                 }
             }
         }

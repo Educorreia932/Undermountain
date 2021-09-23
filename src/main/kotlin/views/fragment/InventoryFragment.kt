@@ -13,10 +13,6 @@ class InventoryFragment(
     width: Int,
     private val onEquip: (GameItem) -> Maybe<GameItem>
 ) : Fragment {
-    private val equipButton = Components.button()
-        .withText("Equip")
-        .build()
-    
     override val root = Components.vbox()
         .withSize(width, inventory.size + 1)
         .build()
