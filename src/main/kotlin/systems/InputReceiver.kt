@@ -1,22 +1,18 @@
 package systems
 
-import builders.EntityFactory.newFirebolt
 import entities.Player
 import enums.GameState
 import extensions.GameEntity
 import extensions.position
-import game.Game
 import game.GameConfig
 import game.GameContext
 import game.MetaContext
 import messages.CastSpell
-import messages.EntityAction
 import messages.InspectInventory
 import messages.InspectSpells
 import messages.MoveTo
 import messages.PickItemUp
 import org.hexworks.amethyst.api.base.BaseBehavior
-import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.cobalt.logging.api.LoggerFactory
 import org.hexworks.zircon.api.data.Position3D
@@ -51,22 +47,30 @@ object InputReceiver : BaseBehavior<GameContext>() {
         }
         
         else if (MetaContext.gameState == GameState.TARGETING) {
-            if (uiEvent is MouseEvent && uiEvent.type == MouseEventType.MOUSE_CLICKED) {
-                val position = Position3D.create(
-                    uiEvent.position.x - GameConfig.SIDEBAR_WIDTH,
-                    uiEvent.position.y,
-                    currentPos.z
-                ) // TODO: Won't work if camera moves
-                val selectedTarget = world.fetchBlockAt(position).get().occupier.get()
+//            if (uiEvent is MouseEvent && uiEvent.type == MouseEventType.MOUSE_CLICKED) {
+//                val position = Position3D.create(
+//                    uiEvent.position.x - GameConfig.SIDEBAR_WIDTH,
+//                    uiEvent.position.y,
+//                    currentPos.z
+//                ) 
+//                
+//                val selectedTarget = world.fetchBlockAt(position).get().occupier.get()
+//
+//                MetaContext.suspendedAction?.let { 
+//                    it as CastSpell
+//                    it.target = selectedTarget
+//                    selectedTarget.receiveMessage(it)
+//                }
+//            }
 
-                MetaContext.suspendedAction?.let { 
-                    it as CastSpell
-                    it.target = selectedTarget
-                    player.receiveMessage(it) 
-                }
-            }
-            else if (uiEvent is KeyboardEvent) {
+            println(player.position)
+            
+            if (uiEvent is KeyboardEvent) {
                 when (uiEvent.code) {
+                    KeyCode.UP -> TODO()
+                    KeyCode.LEFT -> TODO()
+                    KeyCode.DOWN -> TODO()
+                    KeyCode.RIGHT -> TODO()
                     KeyCode.ESCAPE -> {
                         MetaContext.gameState = GameState.PLAYER_TURN
                         MetaContext.suspendedAction = null
@@ -94,9 +98,5 @@ object InputReceiver : BaseBehavior<GameContext>() {
 
     private suspend fun GameEntity<Player>.inspectSpells(position: Position3D, context: GameContext) {
         receiveMessage(InspectSpells(context, this, position))
-    }
-
-    private suspend fun GameEntity<Player>.selectTarget(context: GameContext, target: Entity<EntityType, GameContext>) {
-        receiveMessage(CastSpell(context, this, target, newFirebolt()))
     }
 }

@@ -1,9 +1,7 @@
 package builders
 
-import entities.Goblin
 import entities.Player
 import extensions.GameEntity
-import extensions.GameItem
 import extensions.position
 import game.Game
 import game.GameConfig
@@ -63,18 +61,6 @@ class GameBuilder(val worldSize: Size3D, val player: GameEntity<Player>) {
         )
 
         return player
-    }
-
-    private fun addSword(): GameItem {
-        val item = EntityFactory.newScimitar()
-
-        world.addAtEmptyPosition(
-            item,
-            offset = Position3D.create(0, 0, GameConfig.DUNGEON_LEVELS - 1),
-            size = world.visibleSize.copy(zLength = 0)
-        )
-
-        return item
     }
 
     companion object {

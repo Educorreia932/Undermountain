@@ -2,16 +2,16 @@ package attributes
 
 import enums.AbilityType
 import org.hexworks.cobalt.core.api.UUID
-import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
+import org.hexworks.cobalt.databinding.api.extension.toProperty
 import org.hexworks.zircon.api.Components
 
 class Abilities(
     var strength: Ability = Ability(10),
-    var dexterity: Ability = Ability(10),
-    var constitution: Ability = Ability(10),
-    var wisdom: Ability = Ability(10),
-    var intelligence: Ability = Ability(10),
-    var charisma: Ability = Ability(10)
+    dexterity: Ability = Ability(10),
+    constitution: Ability = Ability(10),
+    wisdom: Ability = Ability(10),
+    intelligence: Ability = Ability(10),
+    charisma: Ability = Ability(10)
 ) : DisplayableAttribute {
     override val id = UUID.randomUUID()
 
@@ -25,7 +25,7 @@ class Abilities(
     )
 
     override fun toComponent(width: Int) = Components.vbox()
-        .withSize(width, 10)
+        .withPreferredSize(width, 10)
         .build()
         .apply {
             addComponent(
@@ -37,11 +37,11 @@ class Abilities(
 
             for ((key, value) in abilities) {
                 val label = Components.label()
-                    .withSize(width, 1)
+                    .withPreferredSize(width, 1)
                     .build()
 
                 label.textProperty.updateFrom(
-                    createPropertyFrom("$key: ${value.getValue()} (${value.getModifier()})")
+                    "$key: ${value.getValue()} (${value.getModifier()})".toProperty()
                 )
                 // TODO: Add a plus if the number is positive.
                 // TODO: Perhaps make the CreatureAttribute displayable itself
@@ -51,7 +51,7 @@ class Abilities(
                 index++
             }
         }
-    
+
     fun applyBonuses(bonuses: Set<AbilityBonus>) {
         bonuses.forEach { bonus ->
             abilities[bonus.abilityType]?.applyBonus(bonus)

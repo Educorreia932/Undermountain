@@ -1,17 +1,15 @@
 package builders
 
-import attributes.VisionBlocker
+import attributes.flags.VisionBlocker
 import attributes.*
 import attributes.classes.PlayerClass
 import attributes.flags.BlockOccupier
 import attributes.races.PlayerRace
+import builders.SpellFactory.newAcidSplash
+import builders.SpellFactory.newFirebolt
+import builders.SpellFactory.newRayOfFrost
 import entities.*
-import entities.FOW
 import enums.DamageType
-import enums.MagicSchool
-import enums.SpellComponent
-import extensions.whenTypeIs
-import functions.logGameEvent
 import game.GameContext
 import game.GameTileRepository.GOBLIN
 import game.GameTileRepository.PLAYER
@@ -27,7 +25,7 @@ import systems.*
 import utils.DiceRoll
 
 object EntityFactory {
-    private fun <T : EntityType> newGameEntityOfType(
+    fun <T : EntityType> newGameEntityOfType(
         type: T,
         init: EntityBuilder<T, GameContext>.() -> Unit
     ) = newEntityOfType(type, init)
@@ -48,7 +46,11 @@ object EntityFactory {
             playerRace,
             abilities,
             Vision(9),
-            KnownSpells(listOf(newAcidSplash(), newFirebolt()))
+            KnownSpells(listOf(
+                newAcidSplash(), 
+                newFirebolt(),
+                newRayOfFrost()
+            ))
         )
         facets(Movable, CameraMover, InventoryInspector, ItemPicker, Spellcastable, Spellcaster)
         behaviors(InputReceiver)
@@ -85,7 +87,7 @@ object EntityFactory {
             )
         )
     }
-    
+
     fun newShortsword() = newGameEntityOfType(Shortsword) {
         attributes(
             EntityPosition(),
@@ -112,44 +114,6 @@ object EntityFactory {
         )
     }
 
-    fun newFirebolt() = newGameEntityOfType(Firebolt) {
-        attributes(
-            SpellStats(
-                level = 0,
-                school = MagicSchool.Evocation,
-                components = setOf(SpellComponent.V, SpellComponent.S),
-                range = 120,
-                duration = 0,
-                effects = listOf { _, caster, target ->
-                    val finalDamage = DiceRoll(1, 10).roll()
-
-                    target.whenTypeIs<Combatant> {
-                        logGameEvent("The fire bolt burns the $it for $finalDamage damage!", caster)
-                    }
-                }
-            )
-        )
-    }
-    
-    fun newAcidSplash() = newGameEntityOfType(AcidSplash) {
-        attributes(
-            SpellStats(
-                level = 0,
-                school = MagicSchool.Conjuration,
-                components = setOf(SpellComponent.V, SpellComponent.S),
-                range = 60,
-                duration = 0,
-                effects = listOf { _, caster, target ->
-                    val finalDamage = DiceRoll(1, 6).roll()
-                    
-                    target.whenTypeIs<Combatant> {  
-                        logGameEvent("The acid splash hurts the $it for $finalDamage damage!", caster)
-                    }
-                }
-            )
-        )
-    }
-    
     fun newFogOfWar() = newGameEntityOfType(FOW) {
         behaviors(FogOfWar)
     }

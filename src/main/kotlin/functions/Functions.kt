@@ -1,8 +1,8 @@
 package functions
 
 import events.GameLogEvent
-import org.hexworks.zircon.internal.Zircon
+import org.hexworks.cobalt.databinding.api.Cobalt
 
 fun logGameEvent(text: String, emitter: Any) {
-    Zircon.eventBus.publish(GameLogEvent(text, emitter))
+    Cobalt.eventbus.publish(GameLogEvent(text, emitter))
 }

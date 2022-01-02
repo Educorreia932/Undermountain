@@ -8,6 +8,7 @@ import game.GameConfig.SIDEBAR_WIDTH
 import game.GameConfig.WINDOW_HEIGHT
 import game.GameConfig.WINDOW_WIDTH
 import game.GameTileRepository
+import org.hexworks.cobalt.databinding.api.Cobalt
 import org.hexworks.cobalt.databinding.api.extension.toProperty
 import org.hexworks.cobalt.events.api.KeepSubscription
 import org.hexworks.cobalt.events.api.subscribeTo
@@ -23,7 +24,6 @@ import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.hexworks.zircon.api.uievent.MouseEventType
 import org.hexworks.zircon.api.uievent.Processed
 import org.hexworks.zircon.api.view.base.BaseView
-import org.hexworks.zircon.internal.Zircon
 import org.hexworks.zircon.internal.game.impl.GameAreaComponentRenderer
 import views.fragment.PlayerInformationFragment
 
@@ -75,7 +75,7 @@ class PlayView(
             Processed
         }
         
-        Zircon.eventBus.subscribeTo<GameLogEvent> { (text) ->
+        Cobalt.eventbus.subscribeTo<GameLogEvent>() { (text) ->
             logArea.addParagraph(
                 paragraph = text,
                 withNewLine = false,

@@ -1,9 +1,7 @@
 package entities
 
 import attributes.SpellStats
-import extensions.AnyGameEntity
 import extensions.GameEntity
-import game.GameContext
 import org.hexworks.amethyst.api.base.BaseEntityType
 import org.hexworks.amethyst.api.entity.EntityType
 
@@ -21,5 +19,12 @@ object Firebolt : BaseEntityType(
     description = "Your hurl a mote of fire at a creature or object within range."
 ), Spell
 
-val GameEntity<Spell>.effects: List<(context: GameContext, caster: AnyGameEntity, target: AnyGameEntity) -> Unit>
+object RayOfFrost : BaseEntityType(
+    name = "Ray of Frost",
+    description = "A frigid beam of blue-white light streaks toward a creature within range. " +
+            "Make a ranged spell attack against the target. " +
+            "On a hit, it takes 1d8 cold damage, and its speed is reduced by 10 feet until the start of your next turn."
+), Spell
+
+val GameEntity<Spell>.effects
     get() = findAttribute(SpellStats::class).get().effects

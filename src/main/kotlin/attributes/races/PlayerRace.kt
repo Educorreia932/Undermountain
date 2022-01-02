@@ -6,6 +6,7 @@ import org.hexworks.amethyst.api.base.BaseAttribute
 
 abstract class PlayerRace(
     name: String,
+    description: String,
     speed: Int,
     size: CreatureSize,
     val abilityBonuses: Set<AbilityBonus>

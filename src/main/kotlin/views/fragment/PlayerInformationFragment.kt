@@ -1,9 +1,11 @@
 package views.fragment
 
 import attributes.DisplayableAttribute
+import attributes.classes.PlayerClass
 import entities.Player
 import entities.equippedWeapon
 import extensions.GameEntity
+import extensions.tryToFindAttribute
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.Fragment
 

@@ -2,6 +2,7 @@ package views.fragment
 
 import attributes.KnownSpells
 import extensions.GameSpell
+import org.hexworks.amethyst.api.Consumed
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.Fragment
 import org.hexworks.zircon.api.component.VBox
@@ -35,8 +36,8 @@ class KnownSpellsFragment(
     private fun addRow(width: Int, spell: GameSpell, list: VBox) {
         val fragment = SpellRowFragment(width, spell).apply {
             castButton.onActivated {
-                onCast(spell)
                 Processed
+                onCast(spell)
             }
         }
         

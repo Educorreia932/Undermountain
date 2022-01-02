@@ -6,11 +6,11 @@ import extensions.GameCombatItem
 import extensions.GameEntity
 import extensions.whenTypeIs
 import org.hexworks.amethyst.api.base.BaseAttribute
-import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
+import org.hexworks.cobalt.databinding.api.extension.toProperty
 import org.hexworks.cobalt.databinding.api.property.Property
 
 class Equipment(initialWeapon: GameEntity<Weapon> = newShortsword()): BaseAttribute() {
-    private val weaponProperty: Property<GameEntity<Weapon>> = createPropertyFrom(initialWeapon)
+    private val weaponProperty: Property<GameEntity<Weapon>> = initialWeapon.toProperty()
 
     val weapon: GameEntity<Weapon> by weaponProperty.asDelegate()
     

@@ -1,4 +1,4 @@
-package attributes
+package attributes.flags
 
 import org.hexworks.amethyst.api.base.BaseAttribute
 

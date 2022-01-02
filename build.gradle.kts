@@ -16,10 +16,9 @@ repositories {
 }
 
 dependencies {
-    implementation("org.hexworks.zircon:zircon.core-jvm:$zirconVersion")
-    implementation("org.hexworks.zircon:zircon.jvm.swing:$zirconVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
-    implementation("org.hexworks.amethyst:amethyst.core-jvm:$amethystVersion")
+    implementation("org.hexworks.zircon:zircon.core-jvm:2021.1.0-RELEASE")
+    implementation("org.hexworks.zircon:zircon.jvm.swing:2021.1.0-RELEASE")
+    implementation("org.hexworks.amethyst:amethyst.core-jvm:2021.0.3-RELEASE")
 }
 
 tasks.test {

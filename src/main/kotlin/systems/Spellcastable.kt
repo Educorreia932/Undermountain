@@ -1,7 +1,9 @@
 package systems
 
 import entities.effects
+import enums.GameState
 import game.GameContext
+import game.MetaContext
 import messages.CastSpell
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.Response
@@ -14,6 +16,9 @@ object Spellcastable: BaseFacet<GameContext, CastSpell>(CastSpell::class) {
         spell.effects.forEach {
             it(context, source, target)
         }
+
+        MetaContext.gameState = GameState.PLAYER_TURN
+        MetaContext.suspendedAction = null
         
         return Consumed
     }

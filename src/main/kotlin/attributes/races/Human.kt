@@ -6,6 +6,7 @@ import enums.CreatureSize
 
 class Human : PlayerRace(
     name = "Human",
+    description = "Humans are the most adaptable and ambitious people among the common races.",
     speed = 30,
     size = CreatureSize.Medium,
     abilityBonuses = setOf(

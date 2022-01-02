@@ -1,7 +1,7 @@
 package extensions
 
 import attributes.EntityActions
-import attributes.VisionBlocker
+import attributes.flags.VisionBlocker
 import attributes.flags.BlockOccupier
 import entities.Player
 import game.GameContext

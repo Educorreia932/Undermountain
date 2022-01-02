@@ -1,11 +1,11 @@
 package attributes
 
 import org.hexworks.amethyst.api.base.BaseAttribute
-import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
+import org.hexworks.cobalt.databinding.api.extension.toProperty
 import org.hexworks.cobalt.databinding.api.property.Property
 
 data class Experience(
-    val currentXPProperty: Property<Int> = createPropertyFrom(0)
+    val currentXPProperty: Property<Int> = 0.toProperty()
 ) : BaseAttribute() {
     var currentXP: Int by currentXPProperty.asDelegate()
     val level: Int

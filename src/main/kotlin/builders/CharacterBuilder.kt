@@ -41,6 +41,7 @@ class CharacterBuilder {
             charisma
         )
         
+        // Apply racial ability bonuses
         abilities.applyBonuses(playerRace.abilityBonuses)
         
         return this
