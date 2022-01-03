@@ -5,6 +5,7 @@ import extensions.occupiesBlock
 import extensions.tile
 import game.GameTileRepository.FLOOR
 import game.GameTileRepository.PLAYER
+import game.GameTileRepository.TARGET
 import game.GameTileRepository.WALL
 import kotlinx.collections.immutable.persistentMapOf
 import org.hexworks.amethyst.api.entity.EntityType
@@ -15,7 +16,7 @@ import org.hexworks.zircon.api.data.base.BaseBlock
 
 class GameBlock(
     private var defaultTile: Tile = FLOOR,
-    private val currentEntities: MutableList<GameEntity<EntityType>> = mutableListOf(), 
+    private val currentEntities: MutableList<GameEntity<EntityType>> = mutableListOf(),
 ) : BaseBlock<Tile>(
     emptyTile = Tile.empty(),
     tiles = persistentMapOf(BlockTileType.CONTENT to defaultTile)
@@ -24,7 +25,7 @@ class GameBlock(
         top = GameTileRepository.UNREVEALED
         updateContent()
     }
-    
+
     val isFloor: Boolean
         get() = defaultTile == FLOOR
 
@@ -36,17 +37,17 @@ class GameBlock(
 
     val entities: Iterable<GameEntity<EntityType>>
         get() = currentEntities.toList()
-    
+
     val occupier: Maybe<GameEntity<EntityType>>
         get() = Maybe.ofNullable(currentEntities.firstOrNull { it.occupiesBlock })
-    
+
     val isOccupied: Boolean
         get() = occupier.isPresent
 
     init {
         updateContent()
     }
-    
+
     fun addEntity(entity: GameEntity<EntityType>) {
         currentEntities.add(entity)
         updateContent()
@@ -59,14 +60,15 @@ class GameBlock(
 
     private fun updateContent() {
         val entityTiles = currentEntities.map { it.tile }
-        
+
         content = when {
+            entityTiles.contains(TARGET) -> TARGET
             entityTiles.contains(PLAYER) -> PLAYER
-            entityTiles.isNotEmpty() -> entityTiles.first()
+            entityTiles.isNotEmpty() -> entityTiles.first() 
             else -> defaultTile
         }
     }
-    
+
     companion object {
         fun createWith(entity: GameEntity<EntityType>) = GameBlock(
             currentEntities = mutableListOf(entity)

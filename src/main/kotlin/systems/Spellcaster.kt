@@ -1,7 +1,9 @@
 package systems
 
 import attributes.KnownSpells
+import builders.EntityFactory.newTarget
 import enums.GameState
+import extensions.position
 import game.GameConfig
 import game.GameContext
 import game.MetaContext
@@ -28,7 +30,7 @@ object Spellcaster : BaseFacet<GameContext, InspectSpells>(InspectSpells::class)
         val screen = context.screen
 
         val panel = Components.panel()
-            .withSize(DIALOG_SIZE)
+            .withPreferredSize(DIALOG_SIZE)
             .withDecorations(ComponentDecorations.box(title = "Known Spells"), ComponentDecorations.shadow())
             .build()
 
@@ -43,11 +45,13 @@ object Spellcaster : BaseFacet<GameContext, InspectSpells>(InspectSpells::class)
         )
         
         panel.addFragment(fragment)
-
+        
         val modal = ModalBuilder.newBuilder<EmptyModalResult>()
-            .withParentSize(screen.size)
+            .withPreferredSize(screen.size)
             .withComponent(panel)
             .withCenteredDialog(true)
+            .withTileset(GameConfig.TILESET)
+            .withColorTheme(GameConfig.THEME)
             .build()
         
         fragment.rows.forEach {

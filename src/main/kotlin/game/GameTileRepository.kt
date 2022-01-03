@@ -47,5 +47,10 @@ object GameTileRepository {
         .withCharacter(' ')
         .withBackgroundColor(GameColors.UNREVEALED_COLOR)
         .buildCharacterTile()
+    
+    val TARGET = Tile.newBuilder()
+        .withCharacter('X')
+        .withForegroundColor(ACCENT_COLOR)
+        .buildCharacterTile()
 }
 

@@ -34,7 +34,7 @@ class PlayView(
 ) : BaseView(grid, theme) {
     init {
         val sidebar = Components.panel()
-            .withSize(SIDEBAR_WIDTH, WINDOW_HEIGHT)
+            .withPreferredSize(SIDEBAR_WIDTH, WINDOW_HEIGHT)
             .withDecorations(box())
             .build()
 
@@ -47,12 +47,12 @@ class PlayView(
 
         val logArea = Components.logArea()
             .withDecorations(box(title = "Log"))
-            .withSize(WINDOW_WIDTH - SIDEBAR_WIDTH, LOG_AREA_HEIGHT)
+            .withPreferredSize(WINDOW_WIDTH - SIDEBAR_WIDTH, LOG_AREA_HEIGHT)
             .withAlignmentWithin(screen, ComponentAlignment.BOTTOM_RIGHT)
             .build()
 
         val gameComponent = Components.panel()
-            .withSize(game.world.visibleSize.to2DSize())
+            .withPreferredSize(game.world.visibleSize.to2DSize())
             .withComponentRenderer(
                 GameAreaComponentRenderer(
                     gameArea = game.world,
@@ -75,11 +75,11 @@ class PlayView(
             Processed
         }
         
-        Cobalt.eventbus.subscribeTo<GameLogEvent>() { (text) ->
+        Cobalt.eventbus.subscribeTo<GameLogEvent> { (text) ->
             logArea.addParagraph(
                 paragraph = text,
                 withNewLine = false,
-                withTypingEffectSpeedInMs = 10
+                withTypingEffectSpeedInMs = 5
             )
             
             KeepSubscription

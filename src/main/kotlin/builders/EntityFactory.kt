@@ -14,6 +14,7 @@ import game.GameContext
 import game.GameTileRepository.GOBLIN
 import game.GameTileRepository.PLAYER
 import game.GameTileRepository.SWORD
+import game.GameTileRepository.TARGET
 import game.GameTileRepository.WALL
 import messages.Attack
 import org.hexworks.amethyst.api.builder.EntityBuilder
@@ -46,11 +47,13 @@ object EntityFactory {
             playerRace,
             abilities,
             Vision(9),
-            KnownSpells(listOf(
-                newAcidSplash(), 
-                newFirebolt(),
-                newRayOfFrost()
-            ))
+            KnownSpells(
+                listOf(
+                    newAcidSplash(),
+                    newFirebolt(),
+                    newRayOfFrost()
+                )
+            )
         )
         facets(Movable, CameraMover, InventoryInspector, ItemPicker, Spellcastable, Spellcaster)
         behaviors(InputReceiver)
@@ -116,5 +119,13 @@ object EntityFactory {
 
     fun newFogOfWar() = newGameEntityOfType(FOW) {
         behaviors(FogOfWar)
+    }
+
+    fun newTarget() = newGameEntityOfType(Target) {
+        attributes(
+            EntityPosition(),
+            EntityTile(TARGET),
+        )
+        facets(Movable)
     }
 }

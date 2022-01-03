@@ -56,9 +56,11 @@ object InventoryInspector : BaseFacet<GameContext, InspectInventory>(InspectInve
         panel.addFragment(fragment)
 
         val modal = ModalBuilder.newBuilder<EmptyModalResult>()
-            .withParentSize(screen.size)
+            .withPreferredSize(screen.size)
             .withComponent(panel)
             .withCenteredDialog(true)
+            .withTileset(GameConfig.TILESET)
+            .withColorTheme(GameConfig.THEME)
             .build()
 
         panel.addComponent(Components.button()

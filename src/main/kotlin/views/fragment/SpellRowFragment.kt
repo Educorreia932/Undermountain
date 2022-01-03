@@ -14,14 +14,15 @@ class SpellRowFragment(
 
     override val root = Components.hbox()
         .withSpacing(1)
-        .withSize(width, 1)
+        .withPreferredSize(width, 1)
         .build()
         .apply {
             addComponent(
                 Components.label()
-                    .withSize(InventoryFragment.NAME_COLUMN_WIDTH, 1)
+                    .withPreferredSize(InventoryFragment.NAME_COLUMN_WIDTH, 1)
                     .withText(spell.name)
             )
+            
             addComponent(castButton)
         }
 }

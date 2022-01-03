@@ -109,7 +109,8 @@ class World(
                 world = this,
                 screen = screen,
                 uiEvent = uiEvent,
-                player = game.player
+                player = game.player,
+                target = game.target
             )
         )
     }
